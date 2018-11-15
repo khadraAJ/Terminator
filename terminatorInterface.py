@@ -43,6 +43,9 @@ class Ui_MainWindow(object):
         obj.write("Rec N°:")
         obj.write(self.labelRecNum.text())
         obj.write("\n\n")
+        obj.write("Genus:")
+        obj.write(self.labelGenus.text())
+        obj.write("\n\n")
         obj.write("Specie Name:")
         obj.write(self.lineEditSpecies.text())
         obj.write("\n\n")
@@ -54,6 +57,12 @@ class Ui_MainWindow(object):
         obj.write("\n\n")
         obj.write("Sex:")
         obj.write(self.lineEditSex.text())
+        obj.write("\n\n\n")
+        obj.write("Locality:")
+        obj.write(self.lineEditLocality.text())
+        obj.write("\n\n\n")
+        obj.write("Host:")
+        obj.write(self.lineEditHost.text())
         obj.write("\n\n\n")
         obj.write(self.textEditPublishedDescription.toPlainText()) ## Adding  of the original text into the file
         ## adding of the triads
@@ -223,37 +232,61 @@ class Ui_MainWindow(object):
         self.lineEditRecNum.setObjectName("lineEditRecNum")
         self.layoutImportText3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEditRecNum)
         
+        ##genus
+        self.labelGenus = QtWidgets.QLabel(self.importText_page)     
+        self.labelGenus.setObjectName("labelGenus")
+        self.layoutImportText3.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.labelGenus)
+        self.lineEditGenus = QtWidgets.QLineEdit(self.importText_page)
+        self.lineEditGenus.setObjectName("lineEditGenus")
+        self.layoutImportText3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEditGenus)
+        
         #specie 
         self.labelSpecies = QtWidgets.QLabel(self.importText_page)
         self.labelSpecies.setObjectName("labelSpecies")
-        self.layoutImportText3.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.labelSpecies)
+        self.layoutImportText3.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.labelSpecies)
         self.lineEditSpecies = QtWidgets.QLineEdit(self.importText_page)
         self.lineEditSpecies.setObjectName("lineEditSpecies")
-        self.layoutImportText3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEditSpecies)
+        self.layoutImportText3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.lineEditSpecies)
         
         #population
         self.labelPopulation = QtWidgets.QLabel(self.importText_page)
         self.labelPopulation.setObjectName("labelPopulation")
-        self.layoutImportText3.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.labelPopulation)
+        self.layoutImportText3.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.labelPopulation)
         self.lineEditPopulation = QtWidgets.QLineEdit(self.importText_page)
         self.lineEditPopulation.setObjectName("lineEditPopulation")
-        self.layoutImportText3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.lineEditPopulation)
+        self.layoutImportText3.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.lineEditPopulation)
         
         #sexe
         self.labelSex = QtWidgets.QLabel(self.importText_page)
         self.labelSex.setObjectName("labelSex")
-        self.layoutImportText3.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.labelSex)
+        self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.labelSex)
         self.lineEditSex = QtWidgets.QLineEdit(self.importText_page)
         self.lineEditSex.setObjectName("lineEditSex")
-        self.layoutImportText3.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.lineEditSex)
+        self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.lineEditSex)
         
         #age
         self.labelAge = QtWidgets.QLabel(self.importText_page)
         self.labelAge.setObjectName("labelAge")
-        self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.labelAge)
+        self.layoutImportText3.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.labelAge)
         self.lineEditAge = QtWidgets.QLineEdit(self.importText_page)
         self.lineEditAge.setObjectName("lineEditAge")
-        self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.lineEditAge)
+        self.layoutImportText3.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.lineEditAge)
+
+        #Locality
+        self.labelLocality = QtWidgets.QLabel(self.importText_page)
+        self.labelLocality.setObjectName("labelLocality")
+        self.layoutImportText3.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.labelLocality)
+        self.lineEditLocality = QtWidgets.QLineEdit(self.importText_page)
+        self.lineEditLocality.setObjectName("lineEditLocality")
+        self.layoutImportText3.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.lineEditLocality)
+        
+        #Host
+        self.labelHost = QtWidgets.QLabel(self.importText_page)
+        self.labelHost.setObjectName("labelHost")
+        self.layoutImportText3.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.labelHost)
+        self.lineEditHost = QtWidgets.QLineEdit(self.importText_page)
+        self.lineEditHost.setObjectName("lineEditHost")
+        self.layoutImportText3.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.lineEditHost)
         
         #espace entre age et published description
         spacerItem = QtWidgets.QSpacerItem(20, 9, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -267,7 +300,7 @@ class Ui_MainWindow(object):
         self.labelPublishedDescription.setObjectName("labelPublishedDescription")
         self.layoutDescription.addWidget(self.labelPublishedDescription)
         
-        #espace entre la zone de texte t les boutons
+        #espace entre la zone de texte et les boutons
         spacerItem1 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.layoutDescription.addItem(spacerItem1)
         
@@ -488,10 +521,13 @@ class Ui_MainWindow(object):
         self.labelRefNum.setText(_translate("MainWindow", "REF_N°"))
         self.labelSpeciesNum.setText(_translate("MainWindow", "SPECIES_N°"))
         self.labelRecNum.setText(_translate("MainWindow", "REC_N°"))
+        self.labelGenus.setText(_translate("MainWindow", "Genus"))
         self.labelSpecies.setText(_translate("MainWindow", "Species"))
         self.labelPopulation.setText(_translate("MainWindow", "Population"))
         self.labelSex.setText(_translate("MainWindow", "Sex"))
         self.labelAge.setText(_translate("MainWindow", "Stage"))
+        self.labelLocality.setText(_translate("MainWindow", "Locality"))
+        self.labelHost.setText(_translate("MainWindow", "Host"))
         
         # import text 
         self.labelPublishedDescription.setText(_translate("MainWindow", "Published description"))
