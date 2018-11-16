@@ -480,6 +480,82 @@ class Ui_MainWindow(object):
         self.tab.addTab(self.schema_page, "")
         self.verticalLayout_17.addWidget(self.tab)
         
+        ## Partie export
+        self.export_page = QtWidgets.QWidget()
+        self.export_page.setObjectName("export_page")
+        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.export_page)
+        self.verticalLayout_77.setObjectName("verticalLayout_77")
+        self.layoutSchema11 = QtWidgets.QVBoxLayout()
+        self.layoutSchema11.setObjectName("layoutSchema11")
+        self.groupBoxSchema11 = QtWidgets.QGroupBox(self.export_page)
+        self.groupBoxSchema11.setObjectName("groupBoxSchema11")
+        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema11)
+        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
+        self.layoutSchema22 = QtWidgets.QVBoxLayout()
+        self.layoutSchema22.setObjectName("layoutSchema22")
+        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema11)
+        self.tableViewSchema.setObjectName("tableViewSchema")
+        self.layoutSchema22.addWidget(self.tableViewSchema)
+        self.layoutSchema33 = QtWidgets.QHBoxLayout()
+        self.layoutSchema33.setObjectName("layoutSchema33")
+        #
+        self.layoutSchema22.addLayout(self.layoutSchema33)
+        self.horizontalLayout_166.addLayout(self.layoutSchema22)
+        self.layoutSchema11.addWidget(self.groupBoxSchema11)
+        self.verticalLayout_77.addLayout(self.layoutSchema11)
+        self.tab.addTab(self.export_page, "")
+        
+        ## partie help
+        self.help_page = QtWidgets.QWidget()
+        self.help_page.setObjectName("help_page")
+        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.help_page)
+        self.verticalLayout_77.setObjectName("verticalLayout_77")
+        self.layoutSchema11 = QtWidgets.QVBoxLayout()
+        self.layoutSchema11.setObjectName("layoutSchema11")
+        self.groupBoxSchema11 = QtWidgets.QGroupBox(self.help_page)
+        self.groupBoxSchema11.setObjectName("groupBoxSchema11")
+        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema11)
+        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
+        self.layoutSchema22 = QtWidgets.QVBoxLayout()
+        self.layoutSchema22.setObjectName("layoutSchema22")
+        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema11)
+        self.tableViewSchema.setObjectName("tableViewSchema")
+        self.layoutSchema22.addWidget(self.tableViewSchema)
+        self.layoutSchema33 = QtWidgets.QHBoxLayout()
+        self.layoutSchema33.setObjectName("layoutSchema33")
+        #
+        self.layoutSchema22.addLayout(self.layoutSchema33)
+        self.horizontalLayout_166.addLayout(self.layoutSchema22)
+        self.layoutSchema11.addWidget(self.groupBoxSchema11)
+        self.verticalLayout_77.addLayout(self.layoutSchema11)
+        self.tab.addTab(self.help_page, "")
+        
+        ## Partie log out
+        self.logout_page = QtWidgets.QWidget()
+        self.logout_page.setObjectName("logout_page")
+        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.logout_page)
+        self.verticalLayout_77.setObjectName("verticalLayout_77")
+        self.layoutSchema11 = QtWidgets.QVBoxLayout()
+        self.layoutSchema11.setObjectName("layoutSchema11")
+        self.groupBoxSchema9 = QtWidgets.QGroupBox(self.logout_page)
+        self.groupBoxSchema9.setObjectName("groupBoxSchema9")
+        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema9)
+        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
+        self.layoutSchema22 = QtWidgets.QVBoxLayout()
+        self.layoutSchema22.setObjectName("layoutSchema22")
+        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema9)
+        self.tableViewSchema.setObjectName("tableViewSchema")
+        self.layoutSchema22.addWidget(self.tableViewSchema)
+        self.layoutSchema33 = QtWidgets.QHBoxLayout()
+        self.layoutSchema33.setObjectName("layoutSchema33")
+        #
+        self.layoutSchema22.addLayout(self.layoutSchema33)
+        self.horizontalLayout_166.addLayout(self.layoutSchema22)
+        self.layoutSchema11.addWidget(self.groupBoxSchema9)
+        self.verticalLayout_77.addLayout(self.layoutSchema11)
+        self.tab.addTab(self.logout_page, "")
+        #self.verticalLayout_17.addWidget(self.tab)#####################################################
+        
         ## ?? 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -547,7 +623,13 @@ class Ui_MainWindow(object):
         self.pushButtoModifySchema.setText(_translate("MainWindow", "Modify"))
         self.pushButtonDeleteSchema.setText(_translate("MainWindow", "Delete"))
         self.tab.setTabText(self.tab.indexOf(self.schema_page), _translate("MainWindow", "Schema"))
-
+        # partie export
+        self.tab.setTabText(self.tab.indexOf(self.export_page), _translate("MainWindow", "Export results"))
+        # partie help
+        self.tab.setTabText(self.tab.indexOf(self.help_page), _translate("MainWindow", "Help"))
+        # partie log out
+        self.tab.setTabText(self.tab.indexOf(self.logout_page), _translate("MainWindow", "Log out"))
+        self.groupBoxSchema9.setTitle(_translate("MainWindow", "Au revoir !"))
 
 if __name__ == "__main__":
     import sys
