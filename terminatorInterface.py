@@ -43,6 +43,9 @@ class Ui_MainWindow(object):
         obj.write("Rec N°:")
         obj.write(self.labelRecNum.text())
         obj.write("\n\n")
+        obj.write("Genus:")
+        obj.write(self.labelGenus.text())
+        obj.write("\n\n")
         obj.write("Specie Name:")
         obj.write(self.lineEditSpecies.text())
         obj.write("\n\n")
@@ -54,6 +57,12 @@ class Ui_MainWindow(object):
         obj.write("\n\n")
         obj.write("Sex:")
         obj.write(self.lineEditSex.text())
+        obj.write("\n\n\n")
+        obj.write("Locality:")
+        obj.write(self.lineEditLocality.text())
+        obj.write("\n\n\n")
+        obj.write("Host:")
+        obj.write(self.lineEditHost.text())
         obj.write("\n\n\n")
         obj.write(self.textEditPublishedDescription.toPlainText()) ## Adding  of the original text into the file
         ## adding of the triads
@@ -223,37 +232,61 @@ class Ui_MainWindow(object):
         self.lineEditRecNum.setObjectName("lineEditRecNum")
         self.layoutImportText3.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.lineEditRecNum)
         
+        ##genus
+        self.labelGenus = QtWidgets.QLabel(self.importText_page)     
+        self.labelGenus.setObjectName("labelGenus")
+        self.layoutImportText3.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.labelGenus)
+        self.lineEditGenus = QtWidgets.QLineEdit(self.importText_page)
+        self.lineEditGenus.setObjectName("lineEditGenus")
+        self.layoutImportText3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEditGenus)
+        
         #specie 
         self.labelSpecies = QtWidgets.QLabel(self.importText_page)
         self.labelSpecies.setObjectName("labelSpecies")
-        self.layoutImportText3.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.labelSpecies)
+        self.layoutImportText3.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.labelSpecies)
         self.lineEditSpecies = QtWidgets.QLineEdit(self.importText_page)
         self.lineEditSpecies.setObjectName("lineEditSpecies")
-        self.layoutImportText3.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.lineEditSpecies)
+        self.layoutImportText3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.lineEditSpecies)
         
         #population
         self.labelPopulation = QtWidgets.QLabel(self.importText_page)
         self.labelPopulation.setObjectName("labelPopulation")
-        self.layoutImportText3.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.labelPopulation)
+        self.layoutImportText3.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.labelPopulation)
         self.lineEditPopulation = QtWidgets.QLineEdit(self.importText_page)
         self.lineEditPopulation.setObjectName("lineEditPopulation")
-        self.layoutImportText3.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.lineEditPopulation)
+        self.layoutImportText3.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.lineEditPopulation)
         
         #sexe
         self.labelSex = QtWidgets.QLabel(self.importText_page)
         self.labelSex.setObjectName("labelSex")
-        self.layoutImportText3.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.labelSex)
+        self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.labelSex)
         self.lineEditSex = QtWidgets.QLineEdit(self.importText_page)
         self.lineEditSex.setObjectName("lineEditSex")
-        self.layoutImportText3.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.lineEditSex)
+        self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.lineEditSex)
         
         #age
         self.labelAge = QtWidgets.QLabel(self.importText_page)
         self.labelAge.setObjectName("labelAge")
-        self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.labelAge)
+        self.layoutImportText3.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.labelAge)
         self.lineEditAge = QtWidgets.QLineEdit(self.importText_page)
         self.lineEditAge.setObjectName("lineEditAge")
-        self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.lineEditAge)
+        self.layoutImportText3.setWidget(8, QtWidgets.QFormLayout.FieldRole, self.lineEditAge)
+
+        #Locality
+        self.labelLocality = QtWidgets.QLabel(self.importText_page)
+        self.labelLocality.setObjectName("labelLocality")
+        self.layoutImportText3.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.labelLocality)
+        self.lineEditLocality = QtWidgets.QLineEdit(self.importText_page)
+        self.lineEditLocality.setObjectName("lineEditLocality")
+        self.layoutImportText3.setWidget(9, QtWidgets.QFormLayout.FieldRole, self.lineEditLocality)
+        
+        #Host
+        self.labelHost = QtWidgets.QLabel(self.importText_page)
+        self.labelHost.setObjectName("labelHost")
+        self.layoutImportText3.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.labelHost)
+        self.lineEditHost = QtWidgets.QLineEdit(self.importText_page)
+        self.lineEditHost.setObjectName("lineEditHost")
+        self.layoutImportText3.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.lineEditHost)
         
         #espace entre age et published description
         spacerItem = QtWidgets.QSpacerItem(20, 9, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -267,7 +300,7 @@ class Ui_MainWindow(object):
         self.labelPublishedDescription.setObjectName("labelPublishedDescription")
         self.layoutDescription.addWidget(self.labelPublishedDescription)
         
-        #espace entre la zone de texte t les boutons
+        #espace entre la zone de texte et les boutons
         spacerItem1 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.layoutDescription.addItem(spacerItem1)
         
@@ -447,6 +480,82 @@ class Ui_MainWindow(object):
         self.tab.addTab(self.schema_page, "")
         self.verticalLayout_17.addWidget(self.tab)
         
+        ## Partie export
+        self.export_page = QtWidgets.QWidget()
+        self.export_page.setObjectName("export_page")
+        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.export_page)
+        self.verticalLayout_77.setObjectName("verticalLayout_77")
+        self.layoutSchema11 = QtWidgets.QVBoxLayout()
+        self.layoutSchema11.setObjectName("layoutSchema11")
+        self.groupBoxSchema11 = QtWidgets.QGroupBox(self.export_page)
+        self.groupBoxSchema11.setObjectName("groupBoxSchema11")
+        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema11)
+        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
+        self.layoutSchema22 = QtWidgets.QVBoxLayout()
+        self.layoutSchema22.setObjectName("layoutSchema22")
+        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema11)
+        self.tableViewSchema.setObjectName("tableViewSchema")
+        self.layoutSchema22.addWidget(self.tableViewSchema)
+        self.layoutSchema33 = QtWidgets.QHBoxLayout()
+        self.layoutSchema33.setObjectName("layoutSchema33")
+        #
+        self.layoutSchema22.addLayout(self.layoutSchema33)
+        self.horizontalLayout_166.addLayout(self.layoutSchema22)
+        self.layoutSchema11.addWidget(self.groupBoxSchema11)
+        self.verticalLayout_77.addLayout(self.layoutSchema11)
+        self.tab.addTab(self.export_page, "")
+        
+        ## partie help
+        self.help_page = QtWidgets.QWidget()
+        self.help_page.setObjectName("help_page")
+        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.help_page)
+        self.verticalLayout_77.setObjectName("verticalLayout_77")
+        self.layoutSchema11 = QtWidgets.QVBoxLayout()
+        self.layoutSchema11.setObjectName("layoutSchema11")
+        self.groupBoxSchema11 = QtWidgets.QGroupBox(self.help_page)
+        self.groupBoxSchema11.setObjectName("groupBoxSchema11")
+        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema11)
+        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
+        self.layoutSchema22 = QtWidgets.QVBoxLayout()
+        self.layoutSchema22.setObjectName("layoutSchema22")
+        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema11)
+        self.tableViewSchema.setObjectName("tableViewSchema")
+        self.layoutSchema22.addWidget(self.tableViewSchema)
+        self.layoutSchema33 = QtWidgets.QHBoxLayout()
+        self.layoutSchema33.setObjectName("layoutSchema33")
+        #
+        self.layoutSchema22.addLayout(self.layoutSchema33)
+        self.horizontalLayout_166.addLayout(self.layoutSchema22)
+        self.layoutSchema11.addWidget(self.groupBoxSchema11)
+        self.verticalLayout_77.addLayout(self.layoutSchema11)
+        self.tab.addTab(self.help_page, "")
+        
+        ## Partie log out
+        self.logout_page = QtWidgets.QWidget()
+        self.logout_page.setObjectName("logout_page")
+        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.logout_page)
+        self.verticalLayout_77.setObjectName("verticalLayout_77")
+        self.layoutSchema11 = QtWidgets.QVBoxLayout()
+        self.layoutSchema11.setObjectName("layoutSchema11")
+        self.groupBoxSchema9 = QtWidgets.QGroupBox(self.logout_page)
+        self.groupBoxSchema9.setObjectName("groupBoxSchema9")
+        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema9)
+        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
+        self.layoutSchema22 = QtWidgets.QVBoxLayout()
+        self.layoutSchema22.setObjectName("layoutSchema22")
+        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema9)
+        self.tableViewSchema.setObjectName("tableViewSchema")
+        self.layoutSchema22.addWidget(self.tableViewSchema)
+        self.layoutSchema33 = QtWidgets.QHBoxLayout()
+        self.layoutSchema33.setObjectName("layoutSchema33")
+        #
+        self.layoutSchema22.addLayout(self.layoutSchema33)
+        self.horizontalLayout_166.addLayout(self.layoutSchema22)
+        self.layoutSchema11.addWidget(self.groupBoxSchema9)
+        self.verticalLayout_77.addLayout(self.layoutSchema11)
+        self.tab.addTab(self.logout_page, "")
+        #self.verticalLayout_17.addWidget(self.tab)#####################################################
+        
         ## ?? 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -488,10 +597,13 @@ class Ui_MainWindow(object):
         self.labelRefNum.setText(_translate("MainWindow", "REF_N°"))
         self.labelSpeciesNum.setText(_translate("MainWindow", "SPECIES_N°"))
         self.labelRecNum.setText(_translate("MainWindow", "REC_N°"))
+        self.labelGenus.setText(_translate("MainWindow", "Genus"))
         self.labelSpecies.setText(_translate("MainWindow", "Species"))
         self.labelPopulation.setText(_translate("MainWindow", "Population"))
         self.labelSex.setText(_translate("MainWindow", "Sex"))
         self.labelAge.setText(_translate("MainWindow", "Stage"))
+        self.labelLocality.setText(_translate("MainWindow", "Locality"))
+        self.labelHost.setText(_translate("MainWindow", "Host"))
         
         # import text 
         self.labelPublishedDescription.setText(_translate("MainWindow", "Published description"))
@@ -511,7 +623,13 @@ class Ui_MainWindow(object):
         self.pushButtoModifySchema.setText(_translate("MainWindow", "Modify"))
         self.pushButtonDeleteSchema.setText(_translate("MainWindow", "Delete"))
         self.tab.setTabText(self.tab.indexOf(self.schema_page), _translate("MainWindow", "Schema"))
-
+        # partie export
+        self.tab.setTabText(self.tab.indexOf(self.export_page), _translate("MainWindow", "Export results"))
+        # partie help
+        self.tab.setTabText(self.tab.indexOf(self.help_page), _translate("MainWindow", "Help"))
+        # partie log out
+        self.tab.setTabText(self.tab.indexOf(self.logout_page), _translate("MainWindow", "Log out"))
+        self.groupBoxSchema9.setTitle(_translate("MainWindow", "Au revoir !"))
 
 if __name__ == "__main__":
     import sys
