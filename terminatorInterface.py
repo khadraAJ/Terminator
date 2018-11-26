@@ -130,9 +130,16 @@ class Ui_MainWindow(object):
    # méthode bouton next ok 
    ############################################
     def boutonNext(self):
-        self.tab.setCurrentIndex(2)
-        self.processImport()
-
+        #On ne peut pas cliquer sur next si Published description est vide
+        if(self.textEditPublishedDescription.toPlainText() != ""):
+            self.tab.setCurrentIndex(2)
+            self.processImport()
+            self.labelEmptyField.setText("")
+        else: self.labelEmptyField.setText("The field Published Description cannot be empty.")
+        
+    # dégrise le bouton next
+    def enableNextButton(self):
+        self.pushButtonNext.setEnabled(True);
 
 ############################################################
     def open_dialog(self):
@@ -164,6 +171,7 @@ class Ui_MainWindow(object):
                     val = x[2]
                     self.tableViewResultExecute.setValue1(i, organ, prop, val)
                     i += 1
+
 
     def setupUi(self, MainWindow):
         ## setting of the window and the home page 
@@ -264,7 +272,7 @@ class Ui_MainWindow(object):
         self.lineEditSex.setObjectName("lineEditSex")
         self.layoutImportText3.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.lineEditSex)
         
-        #age
+        #stage
         self.labelAge = QtWidgets.QLabel(self.importText_page)
         self.labelAge.setObjectName("labelAge")
         self.layoutImportText3.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.labelAge)
@@ -292,7 +300,7 @@ class Ui_MainWindow(object):
         spacerItem = QtWidgets.QSpacerItem(20, 9, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.layoutImportText3.setItem(0, QtWidgets.QFormLayout.FieldRole, spacerItem)
         
-        # zone de text
+        # zone de texte
         self.layoutImportText2.setLayout(1, QtWidgets.QFormLayout.SpanningRole, self.layoutImportText3)
         self.layoutDescription = QtWidgets.QVBoxLayout()
         self.layoutDescription.setObjectName("layoutDescription")
@@ -317,17 +325,27 @@ class Ui_MainWindow(object):
         #import file bouton
         self.pushButtonImportFile = QtWidgets.QPushButton(self.importText_page)
         self.pushButtonImportFile.setObjectName("pushButtonImportFile")
+        
+        
+        
         self.layoutImpotFileAndnextButtons.addWidget(self.pushButtonImportFile)
         
-        #next boutton
+        #next bouton
         self.pushButtonNext = QtWidgets.QPushButton(self.importText_page)
+
+        
         self.pushButtonNext.setObjectName("pushButtonNext")
         self.layoutImpotFileAndnextButtons.addWidget(self.pushButtonNext)
         
         ##link of the action to the button 
         self.pushButtonNext.clicked.connect(self.boutonNext)
         
-        
+        #Message quand Published description est vide
+        self.labelEmptyField = QtWidgets.QLabel(self.importText_page)
+        self.labelEmptyField.setObjectName("labelEmptyField")
+        self.layoutImportText2.setWidget(30, QtWidgets.QFormLayout.LabelRole, self.labelEmptyField)
+
+    
                
         
         self.layoutDescription.addLayout(self.layoutImpotFileAndnextButtons)
@@ -335,6 +353,7 @@ class Ui_MainWindow(object):
         self.layoutImportText1.addLayout(self.layoutImportText2)
         self.verticalLayout_2.addLayout(self.layoutImportText1)
         self.tab.addTab(self.importText_page, "")
+        
         
         #execute_page
         self.execute_page = QtWidgets.QWidget()
@@ -604,6 +623,7 @@ class Ui_MainWindow(object):
         self.labelAge.setText(_translate("MainWindow", "Stage"))
         self.labelLocality.setText(_translate("MainWindow", "Locality"))
         self.labelHost.setText(_translate("MainWindow", "Host"))
+        self.labelEmptyField.setText(_translate("MainWindow", ""))
         
         # import text 
         self.labelPublishedDescription.setText(_translate("MainWindow", "Published description"))
