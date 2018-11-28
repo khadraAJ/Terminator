@@ -153,16 +153,16 @@ class Ui_MainWindow(object):
         dicotampon = pseudo_main(self.textEditPublishedDescription.toPlainText())
         # dicoOrgans = opening('organsList') # on charge le dictionnaire contenant les organes et leurs synonymes
         # valuesDico = opening('valuesDico') # on charge le dico contenant les valeurs et leurs synonymes
-        tampon = self.textEditPublishedDescription.toPlainText()
+        #tampon = self.textEditPublishedDescription.toPlainText()
         self.textEditPublishedDescriptionExecutePage.clear()
         # self.textEditPublishedDescriptionExecutePage.insertPlainText(tampon)
         i = 0
 
         for key, value in dicotampon.items():
-            print(key)
-            self.textEditPublishedDescriptionExecutePage.insertPlainText(key)
+   
+            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
             if (value):
-                for j in range(len(value)):
+                for j in range(len(value)): #pour chaque triade
                     self.tableViewResultExecute.addRow()
                     # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
                     x = value[j]
@@ -445,12 +445,11 @@ class Ui_MainWindow(object):
         self.pushButtonSaveAJobExecute.setObjectName("pushButtonSaveAJobExecute")
         self.layoutExecute5.addWidget(self.pushButtonSaveAJobExecute)
         
-        #button save
-        self.pushButtonSaveExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
-        self.pushButtonSaveExecute.setObjectName("pushButtonSaveExecute")
-        self.layoutExecute5.addWidget(self.pushButtonSaveExecute)
+        #button next
+        self.pushButtonNextExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
+        self.pushButtonNextExecute.setObjectName("pushButtonNextExecute")
+        self.layoutExecute5.addWidget(self.pushButtonNextExecute)
         self.layoutExecute4.addLayout(self.layoutExecute5)
-        self.pushButtonSaveExecute.clicked.connect(self.creationFichier)
         
         
         self.horizontalLayout_14.addLayout(self.layoutExecute4)
@@ -635,7 +634,7 @@ class Ui_MainWindow(object):
         self.groupBoxExecute2.setTitle(_translate("MainWindow", "Result :"))
         self.pushButtonUndoExecute.setText(_translate("MainWindow", "Undo"))
         self.pushButtonSaveAJobExecute.setText(_translate("MainWindow", "Save a job"))
-        self.pushButtonSaveExecute.setText(_translate("MainWindow", "Save"))
+        self.pushButtonNextExecute.setText(_translate("MainWindow", "Next"))
         # partie schema 
         self.tab.setTabText(self.tab.indexOf(self.execute_page), _translate("MainWindow", "Execute"))
         self.groupBoxSchema1.setTitle(_translate("MainWindow", "Schema of the organs and their associated properties"))

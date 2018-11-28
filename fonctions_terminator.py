@@ -692,10 +692,13 @@ def addRelativeProp(listRelativeVal, posRelativeVal, listOrgans, posOrgans, list
                             ind_org = posOrgans.index(k) #we get the index of its position in the source
                             if j[0] < k[0] and relativeProp=='': #if the relative property is located before an organ
                                 relativeProp = deduc[0] + ' ' + listOrgans[ind_org] #then we concatenate them
-                                if k[ind_org - 1] != None: #if there is another organ located just before
-                                    organ = listOrgans[ind_org - 1] #we store it
-                                    relativeVal = listRelativeVal[ind_prop]
-                                    tr = createTriad(organ, relativeProp, relativeVal)
+                                if ind_org-1 >= 0 and ind_org-1<len(k):
+                                    if k[ind_org - 1] != None: #if there is another organ located just before
+                                        organ = listOrgans[ind_org - 1] #we store it
+                                        relativeVal = listRelativeVal[ind_prop]
+                                        tr = createTriad(organ, relativeProp, relativeVal)
+                                    else: #if we cannot identify which organ it refers to
+                                        tr = createTriad("Organ not found", relativeProp, relativeVal)
                                     #and we associate this organ with the relative property and its value
                                 else: #if we cannot identify which organ it refers to
                                     tr = createTriad("Organ not found", relativeProp, relativeVal)
