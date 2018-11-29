@@ -110,9 +110,9 @@ class Ui_MainWindow(object):
         self.tableViewResultExecute.update()
         del self.listBuffer[-1]
     
-##################################################
+    ##################################################
     #méthode bouton delete ok 
-#################################################
+    #################################################
     def deleteTriad(self):
         self.buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),0).text())
         print("Buffer après premier ajout"+self.buffer[0])
@@ -126,9 +126,9 @@ class Ui_MainWindow(object):
         print(self.listBuffer)
         self.buffer=[]
         self.tableViewResultExecute.deleteLine(self.tableViewResultExecute.row((self.tableViewResultExecute.currentItem())));
-   #############################################
-   # méthode bouton next ok 
-   ############################################
+    #############################################
+    # méthode bouton next ok 
+    ############################################
     def boutonNext(self):
         #On ne peut pas cliquer sur next si Published description est vide
         if(self.textEditPublishedDescription.toPlainText() != ""):
@@ -153,16 +153,16 @@ class Ui_MainWindow(object):
         dicotampon = pseudo_main(self.textEditPublishedDescription.toPlainText())
         # dicoOrgans = opening('organsList') # on charge le dictionnaire contenant les organes et leurs synonymes
         # valuesDico = opening('valuesDico') # on charge le dico contenant les valeurs et leurs synonymes
-        #tampon = self.textEditPublishedDescription.toPlainText()
+        tampon = self.textEditPublishedDescription.toPlainText()
         self.textEditPublishedDescriptionExecutePage.clear()
         # self.textEditPublishedDescriptionExecutePage.insertPlainText(tampon)
         i = 0
 
         for key, value in dicotampon.items():
-   
-            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
+            print(key)
+            self.textEditPublishedDescriptionExecutePage.insertPlainText(key)
             if (value):
-                for j in range(len(value)): #pour chaque triade
+                for j in range(len(value)):
                     self.tableViewResultExecute.addRow()
                     # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
                     x = value[j]
@@ -325,15 +325,10 @@ class Ui_MainWindow(object):
         #import file bouton
         self.pushButtonImportFile = QtWidgets.QPushButton(self.importText_page)
         self.pushButtonImportFile.setObjectName("pushButtonImportFile")
-        
-        
-        
         self.layoutImpotFileAndnextButtons.addWidget(self.pushButtonImportFile)
         
         #next bouton
         self.pushButtonNext = QtWidgets.QPushButton(self.importText_page)
-
-        
         self.pushButtonNext.setObjectName("pushButtonNext")
         self.layoutImpotFileAndnextButtons.addWidget(self.pushButtonNext)
         
@@ -346,8 +341,7 @@ class Ui_MainWindow(object):
         self.layoutImportText2.setWidget(30, QtWidgets.QFormLayout.LabelRole, self.labelEmptyField)
 
     
-               
-        
+                       
         self.layoutDescription.addLayout(self.layoutImpotFileAndnextButtons)
         self.layoutImportText2.setLayout(2, QtWidgets.QFormLayout.SpanningRole, self.layoutDescription)
         self.layoutImportText1.addLayout(self.layoutImportText2)
@@ -413,43 +407,36 @@ class Ui_MainWindow(object):
         ################################
         self.pushButtonDelete=QtWidgets.QPushButton(self.groupBoxExecute2)
         self.pushButtonDelete.setText("Delete Triad")
-        
         self.pushButtonDelete.setObjectName("pushButtonDelete")
         self.pushButtonDelete.clicked.connect(self.deleteTriad)
-        
+        self.layoutExecute5.addWidget(self.pushButtonDelete)
 #        
-        #############################
         
-               ################################
+        ################################
         # button add
         ################################
         self.pushButtonAdd=QtWidgets.QPushButton(self.groupBoxExecute2)
         self.pushButtonAdd.setText("Add Triad")
-        
         self.pushButtonAdd.setObjectName("pushButtonAdd")
         self.pushButtonAdd.clicked.connect(self.addTriad)
         self.layoutExecute5.addWidget(self.pushButtonAdd)
-        self.layoutExecute5.addWidget(self.pushButtonDelete)
 
 #        
        
-      
-        ##bouton undo
-        self.pushButtonUndoExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
-        self.pushButtonUndoExecute.setObjectName("pushButtonPreviousExecute")
-        self.layoutExecute5.addWidget(self.pushButtonUndoExecute)
-        self.pushButtonUndoExecute.clicked.connect(self.undo1)
-        
-        ## bouton save a job
-        self.pushButtonSaveAJobExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
-        self.pushButtonSaveAJobExecute.setObjectName("pushButtonSaveAJobExecute")
-        self.layoutExecute5.addWidget(self.pushButtonSaveAJobExecute)
-        
         #button next
-        self.pushButtonNextExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
-        self.pushButtonNextExecute.setObjectName("pushButtonNextExecute")
-        self.layoutExecute5.addWidget(self.pushButtonNextExecute)
+        self.pushButtonNext2=QtWidgets.QPushButton(self.groupBoxExecute2)
+        self.pushButtonNext2.setText("Next")
+        self.pushButtonNext2.setObjectName("pushButtonNext2")
+        #self.pushButtonNext2.clicked.connect(self.addTriad) # nextTriad should be a function ?
+        self.layoutExecute5.addWidget(self.pushButtonNext2)
+        
+        
+        #button save
+        self.pushButtonSaveExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
+        self.pushButtonSaveExecute.setObjectName("pushButtonSaveExecute")
+        self.layoutExecute5.addWidget(self.pushButtonSaveExecute)
         self.layoutExecute4.addLayout(self.layoutExecute5)
+        self.pushButtonSaveExecute.clicked.connect(self.creationFichier)
         
         
         self.horizontalLayout_14.addLayout(self.layoutExecute4)
@@ -548,32 +535,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_77.addLayout(self.layoutSchema11)
         self.tab.addTab(self.help_page, "")
         
-        ## Partie log out
-        self.logout_page = QtWidgets.QWidget()
-        self.logout_page.setObjectName("logout_page")
-        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.logout_page)
-        self.verticalLayout_77.setObjectName("verticalLayout_77")
-        self.layoutSchema11 = QtWidgets.QVBoxLayout()
-        self.layoutSchema11.setObjectName("layoutSchema11")
-        self.groupBoxSchema9 = QtWidgets.QGroupBox(self.logout_page)
-        self.groupBoxSchema9.setObjectName("groupBoxSchema9")
-        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema9)
-        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
-        self.layoutSchema22 = QtWidgets.QVBoxLayout()
-        self.layoutSchema22.setObjectName("layoutSchema22")
-        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema9)
-        self.tableViewSchema.setObjectName("tableViewSchema")
-        self.layoutSchema22.addWidget(self.tableViewSchema)
-        self.layoutSchema33 = QtWidgets.QHBoxLayout()
-        self.layoutSchema33.setObjectName("layoutSchema33")
-        #
-        self.layoutSchema22.addLayout(self.layoutSchema33)
-        self.horizontalLayout_166.addLayout(self.layoutSchema22)
-        self.layoutSchema11.addWidget(self.groupBoxSchema9)
-        self.verticalLayout_77.addLayout(self.layoutSchema11)
-        self.tab.addTab(self.logout_page, "")
-        #self.verticalLayout_17.addWidget(self.tab)#####################################################
-        
         ## ?? 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -632,9 +593,7 @@ class Ui_MainWindow(object):
         #partie resultat
         self.groupBoxExecute1.setTitle(_translate("MainWindow", "Published description"))
         self.groupBoxExecute2.setTitle(_translate("MainWindow", "Result :"))
-        self.pushButtonUndoExecute.setText(_translate("MainWindow", "Undo"))
-        self.pushButtonSaveAJobExecute.setText(_translate("MainWindow", "Save a job"))
-        self.pushButtonNextExecute.setText(_translate("MainWindow", "Next"))
+        self.pushButtonSaveExecute.setText(_translate("MainWindow", "Save"))
         # partie schema 
         self.tab.setTabText(self.tab.indexOf(self.execute_page), _translate("MainWindow", "Execute"))
         self.groupBoxSchema1.setTitle(_translate("MainWindow", "Schema of the organs and their associated properties"))
@@ -646,9 +605,6 @@ class Ui_MainWindow(object):
         self.tab.setTabText(self.tab.indexOf(self.export_page), _translate("MainWindow", "Export results"))
         # partie help
         self.tab.setTabText(self.tab.indexOf(self.help_page), _translate("MainWindow", "Help"))
-        # partie log out
-        self.tab.setTabText(self.tab.indexOf(self.logout_page), _translate("MainWindow", "Log out"))
-        self.groupBoxSchema9.setTitle(_translate("MainWindow", "Au revoir !"))
 
 if __name__ == "__main__":
     import sys
