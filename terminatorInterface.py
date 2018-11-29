@@ -12,7 +12,7 @@ import datetime
 #import Main1103
 from MyTable import Mytable
 from fonctions_terminator import pseudo_main
-#from Import_script import opening
+from Import_script import export
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QHeaderView, QWidget, QLabel, QApplication, QWidget, QPushButton, QMessageBox
 
@@ -89,6 +89,7 @@ class Ui_MainWindow(object):
             stringTampon="".join(triad)
             obj.write(stringTampon)
             obj.write("\n")
+            export(triad)
             triad=[]
         obj.close()
 
@@ -432,13 +433,6 @@ class Ui_MainWindow(object):
         self.layoutExecute5.addWidget(self.pushButtonDelete)
 
 #        
-       
-      
-        ##bouton undo
-        self.pushButtonUndoExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
-        self.pushButtonUndoExecute.setObjectName("pushButtonPreviousExecute")
-        self.layoutExecute5.addWidget(self.pushButtonUndoExecute)
-        self.pushButtonUndoExecute.clicked.connect(self.undo1)
         
         ## bouton save a job
         self.pushButtonSaveAJobExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
@@ -548,31 +542,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_77.addLayout(self.layoutSchema11)
         self.tab.addTab(self.help_page, "")
         
-        ## Partie log out
-        self.logout_page = QtWidgets.QWidget()
-        self.logout_page.setObjectName("logout_page")
-        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.logout_page)
-        self.verticalLayout_77.setObjectName("verticalLayout_77")
-        self.layoutSchema11 = QtWidgets.QVBoxLayout()
-        self.layoutSchema11.setObjectName("layoutSchema11")
-        self.groupBoxSchema9 = QtWidgets.QGroupBox(self.logout_page)
-        self.groupBoxSchema9.setObjectName("groupBoxSchema9")
-        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema9)
-        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
-        self.layoutSchema22 = QtWidgets.QVBoxLayout()
-        self.layoutSchema22.setObjectName("layoutSchema22")
-        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema9)
-        self.tableViewSchema.setObjectName("tableViewSchema")
-        self.layoutSchema22.addWidget(self.tableViewSchema)
-        self.layoutSchema33 = QtWidgets.QHBoxLayout()
-        self.layoutSchema33.setObjectName("layoutSchema33")
-        #
-        self.layoutSchema22.addLayout(self.layoutSchema33)
-        self.horizontalLayout_166.addLayout(self.layoutSchema22)
-        self.layoutSchema11.addWidget(self.groupBoxSchema9)
-        self.verticalLayout_77.addLayout(self.layoutSchema11)
-        self.tab.addTab(self.logout_page, "")
-        #self.verticalLayout_17.addWidget(self.tab)#####################################################
         
         ## ?? 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -632,7 +601,6 @@ class Ui_MainWindow(object):
         #partie resultat
         self.groupBoxExecute1.setTitle(_translate("MainWindow", "Published description"))
         self.groupBoxExecute2.setTitle(_translate("MainWindow", "Result :"))
-        self.pushButtonUndoExecute.setText(_translate("MainWindow", "Undo"))
         self.pushButtonSaveAJobExecute.setText(_translate("MainWindow", "Save a job"))
         self.pushButtonNextExecute.setText(_translate("MainWindow", "Next"))
         # partie schema 
@@ -646,9 +614,6 @@ class Ui_MainWindow(object):
         self.tab.setTabText(self.tab.indexOf(self.export_page), _translate("MainWindow", "Export results"))
         # partie help
         self.tab.setTabText(self.tab.indexOf(self.help_page), _translate("MainWindow", "Help"))
-        # partie log out
-        self.tab.setTabText(self.tab.indexOf(self.logout_page), _translate("MainWindow", "Log out"))
-        self.groupBoxSchema9.setTitle(_translate("MainWindow", "Au revoir !"))
 
 if __name__ == "__main__":
     import sys
