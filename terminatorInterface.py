@@ -89,7 +89,6 @@ class Ui_MainWindow(object):
             stringTampon="".join(triad)
             obj.write(stringTampon)
             obj.write("\n")
-            export(triad)
             triad=[]
         obj.close()
 
@@ -444,6 +443,7 @@ class Ui_MainWindow(object):
         self.pushButtonNextExecute.setObjectName("pushButtonNextExecute")
         self.layoutExecute5.addWidget(self.pushButtonNextExecute)
         self.layoutExecute4.addLayout(self.layoutExecute5)
+        self.pushButtonNextExecute.clicked.connect(self.creationFichier)
         
         
         self.horizontalLayout_14.addLayout(self.layoutExecute4)
