@@ -239,7 +239,7 @@ def supp_item():
 ################ Export of the triads list into an Excel file #################
 ###############################################################################
 
-def export(listeTriades): 
+def export(listeTriades): #create an Excel Sheet with the results
     
     # creation of the workbook
     book = Workbook()
@@ -255,9 +255,9 @@ def export(listeTriades):
     x = 1
     #filling the table
     for triades in listeTriades:
-        sheet1.write(x,0,triades[0])
-        sheet1.write(x,1,triades[1])
-        sheet1.write(x,2,triades[2])
+        sheet1.write(x,0,listeTriades[0])
+        sheet1.write(x,1,listeTriades[1])
+        sheet1.write(x,2,listeTriades[2])
         x += 1 # allow to right in the line below the previous one
     
     # material creation of the existing file
