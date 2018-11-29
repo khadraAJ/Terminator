@@ -12,7 +12,7 @@ import datetime
 #import Main1103
 from MyTable import Mytable
 from fonctions_terminator import pseudo_main
-from Import_script import export
+#from Import_script import opening
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidget,QHeaderView, QWidget, QLabel, QApplication, QWidget, QPushButton, QMessageBox
 
@@ -25,8 +25,8 @@ class Ui_MainWindow(object):
 ##############################################################################
             ###Saving method 
     def creationFichier (self):
-        D=datetime.datetime.today()
-        X=D.strftime('%Y_%m_%d-%H_%M_%S')
+        D=datetime.date.today()
+        X=D.strftime('%Y_%m_%d')
         nomFichier="Terminator_" + X + ".txt"
         obj = open(nomFichier, 'w') ## Opening the file in writting
        ## adding of label informations in the file
@@ -135,11 +135,22 @@ class Ui_MainWindow(object):
             self.tab.setCurrentIndex(2)
             self.processImport()
             self.labelEmptyField.setText("")
-        else: self.labelEmptyField.setText("The field Published Description cannot be empty.")
-        
-    # dégrise le bouton next
-    def enableNextButton(self):
-        self.pushButtonNext.setEnabled(True);
+            self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
+        else:
+            self.labelEmptyField.setText("The field Published Description cannot be empty.")
+            
+    
+    def findCurrentSentence(self):
+        i = 0
+        for j in self.sentences:
+            if(i==self.currentSentence):
+                return (j)
+            i=i+1
+ 
+
+    def boutonNextExecute(self):
+        self.currentSentence += 1
+        self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
 
 ############################################################
     def open_dialog(self):
@@ -156,21 +167,25 @@ class Ui_MainWindow(object):
         #tampon = self.textEditPublishedDescription.toPlainText()
         self.textEditPublishedDescriptionExecutePage.clear()
         # self.textEditPublishedDescriptionExecutePage.insertPlainText(tampon)
-        i = 0
-
-        for key, value in dicotampon.items():
-   
-            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
-            if (value):
-                for j in range(len(value)): #pour chaque triade
-                    self.tableViewResultExecute.addRow()
-                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
-                    x = value[j]
-                    organ = x[0]
-                    prop = x[1]
-                    val = x[2]
-                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
-                    i += 1
+        self.currentSentence = 0
+        self.sentences = dicotampon.keys()
+        self.lastSentence = len(self.sentences)
+        self.triads = dicotampon.values()
+#        i = 0
+#        for key, value in dicotampon.items():
+#   
+#            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
+#            if (value):
+#                for j in range(len(value)): #pour chaque triade
+#                    self.tableViewResultExecute.addRow()
+#                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
+#                    x = value[j]
+#                    organ = x[0]
+#                    prop = x[1]
+#                    val = x[2]
+#                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
+#                    i += 1
+        #end test
 
 
     def setupUi(self, MainWindow):
@@ -432,6 +447,13 @@ class Ui_MainWindow(object):
         self.layoutExecute5.addWidget(self.pushButtonDelete)
 
 #        
+       
+      
+        ##bouton undo
+        self.pushButtonUndoExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
+        self.pushButtonUndoExecute.setObjectName("pushButtonPreviousExecute")
+        self.layoutExecute5.addWidget(self.pushButtonUndoExecute)
+        self.pushButtonUndoExecute.clicked.connect(self.undo1)
         
         ## bouton save a job
         self.pushButtonSaveAJobExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
@@ -443,7 +465,7 @@ class Ui_MainWindow(object):
         self.pushButtonNextExecute.setObjectName("pushButtonNextExecute")
         self.layoutExecute5.addWidget(self.pushButtonNextExecute)
         self.layoutExecute4.addLayout(self.layoutExecute5)
-        self.pushButtonNextExecute.clicked.connect(self.creationFichier)
+        self.pushButtonNextExecute.clicked.connect(self.boutonNextExecute)
         
         
         self.horizontalLayout_14.addLayout(self.layoutExecute4)
@@ -542,6 +564,31 @@ class Ui_MainWindow(object):
         self.verticalLayout_77.addLayout(self.layoutSchema11)
         self.tab.addTab(self.help_page, "")
         
+        ## Partie log out
+        self.logout_page = QtWidgets.QWidget()
+        self.logout_page.setObjectName("logout_page")
+        self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.logout_page)
+        self.verticalLayout_77.setObjectName("verticalLayout_77")
+        self.layoutSchema11 = QtWidgets.QVBoxLayout()
+        self.layoutSchema11.setObjectName("layoutSchema11")
+        self.groupBoxSchema9 = QtWidgets.QGroupBox(self.logout_page)
+        self.groupBoxSchema9.setObjectName("groupBoxSchema9")
+        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema9)
+        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
+        self.layoutSchema22 = QtWidgets.QVBoxLayout()
+        self.layoutSchema22.setObjectName("layoutSchema22")
+        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema9)
+        self.tableViewSchema.setObjectName("tableViewSchema")
+        self.layoutSchema22.addWidget(self.tableViewSchema)
+        self.layoutSchema33 = QtWidgets.QHBoxLayout()
+        self.layoutSchema33.setObjectName("layoutSchema33")
+        #
+        self.layoutSchema22.addLayout(self.layoutSchema33)
+        self.horizontalLayout_166.addLayout(self.layoutSchema22)
+        self.layoutSchema11.addWidget(self.groupBoxSchema9)
+        self.verticalLayout_77.addLayout(self.layoutSchema11)
+        self.tab.addTab(self.logout_page, "")
+        #self.verticalLayout_17.addWidget(self.tab)#####################################################
         
         ## ?? 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -601,6 +648,7 @@ class Ui_MainWindow(object):
         #partie resultat
         self.groupBoxExecute1.setTitle(_translate("MainWindow", "Published description"))
         self.groupBoxExecute2.setTitle(_translate("MainWindow", "Result :"))
+        self.pushButtonUndoExecute.setText(_translate("MainWindow", "Undo"))
         self.pushButtonSaveAJobExecute.setText(_translate("MainWindow", "Save a job"))
         self.pushButtonNextExecute.setText(_translate("MainWindow", "Next"))
         # partie schema 
@@ -614,6 +662,9 @@ class Ui_MainWindow(object):
         self.tab.setTabText(self.tab.indexOf(self.export_page), _translate("MainWindow", "Export results"))
         # partie help
         self.tab.setTabText(self.tab.indexOf(self.help_page), _translate("MainWindow", "Help"))
+        # partie log out
+        self.tab.setTabText(self.tab.indexOf(self.logout_page), _translate("MainWindow", "Log out"))
+        self.groupBoxSchema9.setTitle(_translate("MainWindow", "Au revoir !"))
 
 if __name__ == "__main__":
     import sys
