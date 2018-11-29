@@ -25,8 +25,8 @@ class Ui_MainWindow(object):
 ##############################################################################
             ###Saving method 
     def creationFichier (self):
-        D=datetime.date.today()
-        X=D.strftime('%Y_%m_%d')
+        D=datetime.datetime.today()
+        X=D.strftime('%Y_%m_%d-%H_%M_%S')
         nomFichier="Terminator_" + X + ".txt"
         obj = open(nomFichier, 'w') ## Opening the file in writting
        ## adding of label informations in the file
