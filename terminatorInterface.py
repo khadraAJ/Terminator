@@ -137,11 +137,22 @@ class Ui_MainWindow(object):
             self.tab.setCurrentIndex(2)
             self.processImport()
             self.labelEmptyField.setText("")
-        else: self.labelEmptyField.setText("The field Published Description cannot be empty.")
+            self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
+        else:
+            self.labelEmptyField.setText("The field Published Description cannot be empty.")
+            
+            
+    def findCurrentSentence(self):
+        i = 0
+        for j in self.sentences:
+            if(i==self.currentSentence):
+                return (j)
+            i=i+1
+            
         
-    # dégrise le bouton next
-    def enableNextButton(self):
-        self.pushButtonNext.setEnabled(True);
+    def boutonNextExecute(self):
+        self.currentSentence += 1
+        self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
 
 ############################################################
     def open_dialog(self):
@@ -158,21 +169,24 @@ class Ui_MainWindow(object):
         #tampon = self.textEditPublishedDescription.toPlainText()
         self.textEditPublishedDescriptionExecutePage.clear()
         # self.textEditPublishedDescriptionExecutePage.insertPlainText(tampon)
-        i = 0
-
-        for key, value in dicotampon.items():
-   
-            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
-            if (value):
-                for j in range(len(value)): #pour chaque triade
-                    self.tableViewResultExecute.addRow()
-                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
-                    x = value[j]
-                    organ = x[0]
-                    prop = x[1]
-                    val = x[2]
-                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
-                    i += 1
+        self.currentSentence = 0
+        self.sentences = dicotampon.keys()
+        self.lastSentence = len(self.sentences)
+        self.triads = dicotampon.values()
+#        i = 0
+#        for key, value in dicotampon.items():
+#   
+#            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
+#            if (value):
+#                for j in range(len(value)): #pour chaque triade
+#                    self.tableViewResultExecute.addRow()
+#                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
+#                    x = value[j]
+#                    organ = x[0]
+#                    prop = x[1]
+#                    val = x[2]
+#                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
+#                    i += 1
 
 
     def setupUi(self, MainWindow):
@@ -445,7 +459,8 @@ class Ui_MainWindow(object):
         self.pushButtonNextExecute.setObjectName("pushButtonNextExecute")
         self.layoutExecute5.addWidget(self.pushButtonNextExecute)
         self.layoutExecute4.addLayout(self.layoutExecute5)
-        self.pushButtonNextExecute.clicked.connect(self.creationFichier)
+        self.pushButtonNextExecute.clicked.connect(self.boutonNextExecute)
+        #self.pushButtonNextExecute.clicked.connect(self.creationFichier)
         
         
         self.horizontalLayout_14.addLayout(self.layoutExecute4)
