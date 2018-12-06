@@ -240,10 +240,12 @@ def supp_item():
 ###############################################################################
 
 def export(listeTriades): #create an Excel Sheet with the results
-    
+    #print (listeTriades)
     # creation of the workbook
     book = Workbook()
-    
+    #listeTriades = []
+    #listeTriades.append(['organe1','propriété1','valeur1'])
+    #listeTriades.append(['organe2', 'prop2','val2'])
     # creation of the first sheet
     sheet1 = book.add_sheet('Results')
     
@@ -254,11 +256,13 @@ def export(listeTriades): #create an Excel Sheet with the results
     
     x = 1
     #filling the table
-    for triades in listeTriades:
-        sheet1.write(x,0,listeTriades[0])
-        sheet1.write(x,1,listeTriades[1])
-        sheet1.write(x,2,listeTriades[2])
-        x += 1 # allow to right in the line below the previous one
+    for triades in listeTriades: #pour les triades de chaque phrase
+        for triade in triades: #pour chaque triade
+            print(triade)
+            sheet1.write(x,0,triade[0])
+            sheet1.write(x,1,triade[1])
+            sheet1.write(x,2,triade[2])
+            x += 1 # allow to right in the line below the previous one
     
     # material creation of the existing file
     book.save('FinalResults.xls')
