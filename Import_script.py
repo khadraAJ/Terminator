@@ -8,7 +8,7 @@ Created on Mon Jan 29 15:35:11 2018
 import xlrd
 import pickle
 from xlwt import Workbook
-
+import os
 ###############################################################################
 ##################### Import of excel files in dictionnaries ##################
 ###############################################################################
@@ -286,4 +286,8 @@ dico = import_dico('Fichier_Dictionnaire.xlsx',u'Organes')
 register(dico,'organsList')
 #test = opening('organsList')
 #print(test)
+
+def import_fichier(nomfichier,) : 
+                   mon_fichier = open("yea.py.txt", "r") 
+                   mon_fichier
         
