@@ -20,6 +20,13 @@ class Ui_MainWindow(object):
     app = QtWidgets.QApplication(sys.argv)
     buffer= []
     listBuffer=[]
+    
+    def exportExcel(self):
+        try:
+            export(self.triads) #mauvaise forme de tableau
+        except:
+            print("Fail creation")
+            
     def addTriad(self):
         self.tableViewResultExecute.addRow()
 ##############################################################################
@@ -469,8 +476,7 @@ class Ui_MainWindow(object):
         self.pushButtonExportExecute.setObjectName("pushButtonExportExecute")
         self.layoutExecute5.addWidget(self.pushButtonExportExecute)
         
-        #
-        self.pushButtonExportExecute.clicked.connect(self.creationFichier)
+        self.pushButtonExportExecute.clicked.connect(self.exportExcel)
         
         
         self.horizontalLayout_14.addLayout(self.layoutExecute4)
