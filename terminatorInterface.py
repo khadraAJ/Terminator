@@ -71,27 +71,29 @@ class Ui_MainWindow(object):
         obj.write("\n\n\n")
         obj.write("Triades Generated:")
         obj.write("\n\n\n")
+        
+        espace = 60
+        #dans chaque ligne du tableau de résultat  
         for i in range(self.tableViewResultExecute.rowCount()):
             
-            triad=[]
+            triad=[] # Tableau initialisé pour chaque ligne
             triad.append("           ")
-            triad.append( self.tableViewResultExecute.item(i,0).text())
-            c=0
-            for c in range(len(self.tableViewResultExecute.item(i,0).text())):
-                c+=1
-            for z in range (60-c):
+            triad.append( self.tableViewResultExecute.item(i,0).text()) # écriture de l organe 
+            wordLength = len(self.tableViewResultExecute.item(i,0).text()) - 1
+            
+            for z in range (espace-wordLength):# on ajoute le nombre d'espace manquant pour atteindre 60 carac (pour l'alignement)
                 triad.append(" ")
-            triad.append(self.tableViewResultExecute.item(i,1).text())
-            c=0
-            for c in range (len(self.tableViewResultExecute.item(i,1).text())):
-                c+=1
-            for e in range (60-c):
+            
+            triad.append(self.tableViewResultExecute.item(i,1).text())            
+            wordLength = len(self.tableViewResultExecute.item(i,1).text()) - 1        
+            for e in range (espace-wordLength):
                 triad.append(" ")
-            triad.append(self.tableViewResultExecute.item(i,2).text())
-            stringTampon="".join(triad)
-            obj.write(stringTampon)
+            triad.append(self.tableViewResultExecute.item(i,2).text())# ecriture de la valeur
+            
+            stringTampon="".join(triad) # ça concatène le tableau sous forme de string
+            obj.write(stringTampon) #ecriture du string concaténé dans le fichier
             obj.write("\n")
-            triad=[]
+            # triad=[]
         obj.close()
 
 ################################################################################
@@ -173,20 +175,20 @@ class Ui_MainWindow(object):
         self.sentences = dicotampon.keys()
         self.lastSentence = len(self.sentences)
         self.triads = dicotampon.values()
-#        i = 0
-#        for key, value in dicotampon.items():
-#   
-#            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
-#            if (value):
-#                for j in range(len(value)): #pour chaque triade
-#                    self.tableViewResultExecute.addRow()
-#                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
-#                    x = value[j]
-#                    organ = x[0]
-#                    prop = x[1]
-#                    val = x[2]
-#                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
-#                    i += 1
+        i = 0
+        for key, value in dicotampon.items():
+   
+            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
+            if (value):
+                for j in range(len(value)): #pour chaque triade
+                    self.tableViewResultExecute.addRow()
+                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
+                    x = value[j]
+                    organ = x[0]
+                    prop = x[1]
+                    val = x[2]
+                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
+                    i += 1
 
 
     def setupUi(self, MainWindow):
@@ -462,6 +464,14 @@ class Ui_MainWindow(object):
         self.pushButtonNextExecute.clicked.connect(self.boutonNextExecute)
         #self.pushButtonNextExecute.clicked.connect(self.creationFichier)
         
+        #button export
+        self.pushButtonExportExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
+        self.pushButtonExportExecute.setObjectName("pushButtonExportExecute")
+        self.layoutExecute5.addWidget(self.pushButtonExportExecute)
+        
+        #
+        self.pushButtonExportExecute.clicked.connect(self.creationFichier)
+        
         
         self.horizontalLayout_14.addLayout(self.layoutExecute4)
         self.verticalLayout_13.addWidget(self.groupBoxExecute2)
@@ -620,6 +630,8 @@ class Ui_MainWindow(object):
         self.groupBoxExecute2.setTitle(_translate("MainWindow", "Result :"))
         self.pushButtonSaveAJobExecute.setText(_translate("MainWindow", "Save a job"))
         self.pushButtonNextExecute.setText(_translate("MainWindow", "Next"))
+        self.pushButtonExportExecute.setText(_translate("MainWindow", "Export"))
+        
         # partie schema 
         self.tab.setTabText(self.tab.indexOf(self.execute_page), _translate("MainWindow", "Execute"))
         self.groupBoxSchema1.setTitle(_translate("MainWindow", "Schema of the organs and their associated properties"))
