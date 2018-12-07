@@ -53,16 +53,20 @@ class Mytable (QTableWidget):
             self.enableCell(row, i)
     def init_ui(self):
         self.cellChanged.connect(self.c_current)
+        
     def c_current(self):
         row=self.clickedRow()
         col=self.currentColumn()
         value=self.item(row,col)
         value=value#.text()
+        
     def setValue (self,ligne,colonne, value):
         val=QTableWidgetItem(value)
         self.setCurrentCell(ligne,colonne)
         self.setItem(ligne,colonne,QTableWidgetItem(val))
+        
     def addRow (self):
+        
         self.setRowCount(self.rowCount()+1)
     def setValue1 (self,ligne,value,value1,value2):
         val=QTableWidgetItem(value)
@@ -104,6 +108,12 @@ class Mytable (QTableWidget):
         #form_widget
     def deleteLine (self,row):
         self.removeRow(self.clickedRow())
+        
+    def resetTable (self):
+        lines = self.rowCount()
+        print(lines)
+        for i in range(lines):
+            self.removeRow(i)
        
         
     #def handleItemClicked(box):
