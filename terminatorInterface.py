@@ -147,6 +147,7 @@ class Ui_MainWindow(object):
             self.processImport()
             self.labelEmptyField.setText("")
             self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
+            self.displayCurrentTriads()
         else:
             self.labelEmptyField.setText("The field Published Description cannot be empty.")
             
@@ -159,9 +160,35 @@ class Ui_MainWindow(object):
             i=i+1
             
         
+            
+    def displayCurrentTriads(self):
+        i = 0
+        self.tableViewResultExecute.resetTable()
+        print("displayCurrentTriads")
+        for j in self.triads:
+            if(i==self.currentSentence):
+                self.displayTriads(j)
+                return
+            i=i+1
+            
+    def displayTriads(self, triads):
+        print(triads)
+        triadNumber = 0
+        for triad in triads:
+                self.tableViewResultExecute.addRow()
+                organ = triad[0]
+                prop = triad[1]
+                val = triad[2]
+                self.tableViewResultExecute.setValue1(triadNumber, organ, prop, val)
+                triadNumber += 1
+                    
+            
+            
+        
     def boutonNextExecute(self):
         self.currentSentence += 1
         self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
+        self.displayCurrentTriads()
 
 ############################################################
     def open_dialog(self):
@@ -182,20 +209,20 @@ class Ui_MainWindow(object):
         self.sentences = dicotampon.keys()
         self.lastSentence = len(self.sentences)
         self.triads = dicotampon.values()
-        i = 0
-        for key, value in dicotampon.items():
-   
-            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
-            if (value):
-                for j in range(len(value)): #pour chaque triade
-                    self.tableViewResultExecute.addRow()
-                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
-                    x = value[j]
-                    organ = x[0]
-                    prop = x[1]
-                    val = x[2]
-                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
-                    i += 1
+#        i = 0
+#        for key, value in dicotampon.items():
+#   
+#            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
+#            if (value):
+#                for j in range(len(value)): #pour chaque triade
+#                    self.tableViewResultExecute.addRow()
+#                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
+#                    x = value[j]
+#                    organ = x[0]
+#                    prop = x[1]
+#                    val = x[2]
+#                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
+#                    i += 1
 
 
     def setupUi(self, MainWindow):
