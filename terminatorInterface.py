@@ -164,13 +164,13 @@ class Ui_MainWindow(object):
     def displayCurrentTriads(self):
         i = 0
         self.tableViewResultExecute.resetTable()
-        print("displayCurrentTriads")
         for j in self.triads:
             if(i==self.currentSentence):
                 self.displayTriads(j)
                 return
             i=i+1
-            
+    
+    #displays in the table in Execute all the given triads         
     def displayTriads(self, triads):
         print(triads)
         triadNumber = 0
@@ -184,11 +184,14 @@ class Ui_MainWindow(object):
                     
             
             
-        
+    #when the user clicks on the Next button in Execute, the next triad appears
     def boutonNextExecute(self):
         self.currentSentence += 1
         self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
         self.displayCurrentTriads()
+        #The user can't click on Next anymore after all the sentences have been checked
+        if(self.currentSentence == len(self.sentences)-1):
+            self.pushButtonNextExecute.setEnabled(False)
 
 ############################################################
     def open_dialog(self):
