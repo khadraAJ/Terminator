@@ -172,7 +172,6 @@ class Ui_MainWindow(object):
     
     #displays in the table in Execute all the given triads         
     def displayTriads(self, triads):
-        print(triads)
         triadNumber = 0
         for triad in triads:
                 self.tableViewResultExecute.addRow()
@@ -185,14 +184,28 @@ class Ui_MainWindow(object):
             
             
     #when the user clicks on the Next button in Execute, the next triad appears
-    def boutonNextExecute(self):
+    def buttonNextExecute(self):
         self.currentSentence += 1
         self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
         self.displayCurrentTriads()
-        #The user can't click on Next anymore after all the sentences have been checked
+        #Disables the buttons Previous and Next when needed
         if(self.currentSentence == len(self.sentences)-1):
             self.pushButtonNextExecute.setEnabled(False)
+        if(self.currentSentence != 0):
+            self.pushButtonPreviousExecute.setEnabled(True)
 
+
+    #when the user clicks on the Previous button in Execute, the previous triad appears
+    def buttonPreviousExecute(self):
+        self.currentSentence -= 1
+        self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
+        self.displayCurrentTriads()
+        #Disables the buttons Previous and Next when needed
+        if(self.currentSentence == 0):
+            self.pushButtonPreviousExecute.setEnabled(False)
+        if(self.currentSentence != len(self.sentences)-1):
+            self.pushButtonNextExecute.setEnabled(True)
+        
 ############################################################
     def open_dialog(self):
         dialog = QtWidgets.QDialog()
@@ -212,6 +225,7 @@ class Ui_MainWindow(object):
         self.sentences = dicotampon.keys()
         self.lastSentence = len(self.sentences)
         self.triads = dicotampon.values()
+        print(self.triads)
 #        i = 0
 #        for key, value in dicotampon.items():
 #   
@@ -385,14 +399,11 @@ class Ui_MainWindow(object):
         
         self.layoutImportFileAndnextButtons.addWidget(self.pushButtonImportFile)
         
-        #next bouton
-        self.pushButtonNext = QtWidgets.QPushButton(self.importText_page)
-
         
+        #Next button
+        self.pushButtonNext = QtWidgets.QPushButton(self.importText_page)
         self.pushButtonNext.setObjectName("pushButtonNext")
         self.layoutImportFileAndnextButtons.addWidget(self.pushButtonNext)
-        
-        ##link of the action to the button 
         self.pushButtonNext.clicked.connect(self.boutonNext)
         
         #Message quand Published description est vide
@@ -493,13 +504,20 @@ class Ui_MainWindow(object):
         self.pushButtonSaveAJobExecute.setObjectName("pushButtonSaveAJobExecute")
         self.layoutExecute5.addWidget(self.pushButtonSaveAJobExecute)
         
-        #button next
+        #Previous button in Execute
+        self.pushButtonPreviousExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
+        self.pushButtonPreviousExecute.setObjectName("pushButtonNextExecute")
+        self.layoutExecute5.addWidget(self.pushButtonPreviousExecute)
+        self.layoutExecute4.addLayout(self.layoutExecute5)
+        self.pushButtonPreviousExecute.setEnabled(False)
+        self.pushButtonPreviousExecute.clicked.connect(self.buttonPreviousExecute)
+        
+        #Next button in Execute
         self.pushButtonNextExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
         self.pushButtonNextExecute.setObjectName("pushButtonNextExecute")
         self.layoutExecute5.addWidget(self.pushButtonNextExecute)
         self.layoutExecute4.addLayout(self.layoutExecute5)
-        self.pushButtonNextExecute.clicked.connect(self.boutonNextExecute)
-        #self.pushButtonNextExecute.clicked.connect(self.creationFichier)
+        self.pushButtonNextExecute.clicked.connect(self.buttonNextExecute)
         
         #button export
         self.pushButtonExportExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
@@ -665,6 +683,7 @@ class Ui_MainWindow(object):
         self.groupBoxExecute1.setTitle(_translate("MainWindow", "Published description"))
         self.groupBoxExecute2.setTitle(_translate("MainWindow", "Result :"))
         self.pushButtonSaveAJobExecute.setText(_translate("MainWindow", "Save a job"))
+        self.pushButtonPreviousExecute.setText(_translate("MainWindow", "Previous"))
         self.pushButtonNextExecute.setText(_translate("MainWindow", "Next"))
         self.pushButtonExportExecute.setText(_translate("MainWindow", "Export"))
         
