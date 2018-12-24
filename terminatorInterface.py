@@ -26,9 +26,11 @@ class Ui_MainWindow(object):
             export(self.triads) #mauvaise forme de tableau
         except:
             print("Fail creation")
-            
+    
+    #adds a new line in the Result table with a checkbox in the validated column        
     def addTriad(self):
         self.tableViewResultExecute.addRow()
+        self.tableViewResultExecute.setValue1(self.tableViewResultExecute.rowCount()-1,None,None,None)
 ##############################################################################
             ###Saving method 
     def creationFichier (self):
@@ -80,27 +82,26 @@ class Ui_MainWindow(object):
         obj.write("\n\n\n")
         
         espace = 60
-        #dans chaque ligne du tableau de résultat  
+        #for each line in the Result table
         for i in range(self.tableViewResultExecute.rowCount()):
             
-            triad=[] # Tableau initialisé pour chaque ligne
+            triad=[] # the array is initialised for each line
             triad.append("           ")
-            triad.append( self.tableViewResultExecute.item(i,0).text()) # écriture de l organe 
+            triad.append( self.tableViewResultExecute.item(i,0).text()) #the organ is written 
             wordLength = len(self.tableViewResultExecute.item(i,0).text()) - 1
             
-            for z in range (espace-wordLength):# on ajoute le nombre d'espace manquant pour atteindre 60 carac (pour l'alignement)
+            for z in range (espace-wordLength):# the necessary number of " " is added for the alignment
                 triad.append(" ")
             
             triad.append(self.tableViewResultExecute.item(i,1).text())            
             wordLength = len(self.tableViewResultExecute.item(i,1).text()) - 1        
             for e in range (espace-wordLength):
                 triad.append(" ")
-            triad.append(self.tableViewResultExecute.item(i,2).text())# ecriture de la valeur
+            triad.append(self.tableViewResultExecute.item(i,2).text())#the value is written
             
-            stringTampon="".join(triad) # ça concatène le tableau sous forme de string
-            obj.write(stringTampon) #ecriture du string concaténé dans le fichier
+            stringTampon="".join(triad) #concatenation of the table to obtain a String
+            obj.write(stringTampon) #the String is written in the file
             obj.write("\n")
-            # triad=[]
         obj.close()
 
 ################################################################################
@@ -128,7 +129,7 @@ class Ui_MainWindow(object):
         self.buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),0).text())
         print("Buffer après premier ajout"+self.buffer[0])
         self.buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),1).text())
-        print("Buffer après seond ajout"+self.buffer[1])
+        print("Buffer après second ajout"+self.buffer[1])
         self.buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),2).text())
         print("Buffer après troisieme ajout"+self.buffer[2])
         
