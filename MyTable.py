@@ -106,14 +106,15 @@ class Mytable (QTableWidget):
         ######################################
         #self.setRowCount(self.rowCount()+1)
         #form_widget
-        
+    
+    #removes the row corresponding to the given parameter    
     def deleteLine (self,row):
-        self.removeRow(self.clickedRow())
-        
+        self.removeRow(row)
+    
+    #removes all the rows in the table except the head of the table
     def resetTable (self):
         lines = self.rowCount()
         for i in reversed(range(lines)):
-            print(i)
             self.removeRow(i)
        
         
