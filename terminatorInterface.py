@@ -18,20 +18,24 @@ from PyQt5.QtWidgets import QTableWidget,QHeaderView, QWidget, QLabel, QApplicat
 
 class Ui_MainWindow(object):
     app = QtWidgets.QApplication(sys.argv)
-    buffer= []
+    
     listBuffer=[]
     
     def exportExcel(self):
+        self.labelErrorExecute.setText("")
         try:
             export(self.triads) #mauvaise forme de tableau
         except:
             print("Fail creation")
+            self.labelErrorExecute.setText("Fail creation")
     
     #adds a new line in the Result table with a checkbox in the validated column        
     def addTriad(self):
+        self.labelErrorExecute.setText("")
         self.tableViewResultExecute.addRow()
         self.tableViewResultExecute.setValue1(self.tableViewResultExecute.rowCount()-1,None,None,None)
-##############################################################################
+
+
             ###Saving method 
     def creationFichier (self):
         D=datetime.datetime.today()
@@ -122,22 +126,25 @@ class Ui_MainWindow(object):
         self.tableViewResultExecute.update()
         del self.listBuffer[-1]
     
-##################################################
-    #méthode bouton delete ok 
-#################################################
+
+    #deletes the row of the selected cell
     def deleteTriad(self):
-        self.buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),0).text())
-        print("Buffer après premier ajout"+self.buffer[0])
-        self.buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),1).text())
-        print("Buffer après second ajout"+self.buffer[1])
-        self.buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),2).text())
-        print("Buffer après troisieme ajout"+self.buffer[2])
+        buffer = []
+        self.labelErrorExecute.setText("")
+        #if an item is selected
+        if(self.tableViewResultExecute.currentItem() != None):
+            buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),0).text())
+            print("Buffer après premier ajout : "+buffer[0])
+            buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),1).text())
+            print("Buffer après second ajout : "+buffer[1])
+            buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),2).text())
+            print("Buffer après troisieme ajout : "+buffer[2])
+            self.listBuffer.append(buffer)
+            print("liste buffer après ajout")
+            print(self.listBuffer)
+            self.tableViewResultExecute.deleteLine(self.tableViewResultExecute.row((self.tableViewResultExecute.currentItem())));
+        else: self.labelErrorExecute.setText("No selected item")
         
-        self.listBuffer.append(self.buffer)
-        print("liste buffer après ajout")
-        print(self.listBuffer)
-        self.buffer=[]
-        self.tableViewResultExecute.deleteLine(self.tableViewResultExecute.row((self.tableViewResultExecute.currentItem())));
    #############################################
    # méthode bouton next ok 
    ############################################
@@ -186,6 +193,7 @@ class Ui_MainWindow(object):
             
     #when the user clicks on the Next button in Execute, the next triad appears
     def buttonNextExecute(self):
+        self.labelErrorExecute.setText("")
         self.currentSentence += 1
         self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
         self.displayCurrentTriads()
@@ -198,6 +206,7 @@ class Ui_MainWindow(object):
 
     #when the user clicks on the Previous button in Execute, the previous triad appears
     def buttonPreviousExecute(self):
+        self.labelErrorExecute.setText("")
         self.currentSentence -= 1
         self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
         self.displayCurrentTriads()
@@ -412,9 +421,7 @@ class Ui_MainWindow(object):
         self.labelEmptyField.setObjectName("labelEmptyField")
         self.layoutImportText2.setWidget(30, QtWidgets.QFormLayout.LabelRole, self.labelEmptyField)
 
-    
-               
-        
+
         self.layoutDescription.addLayout(self.layoutImportFileAndnextButtons)
         self.layoutImportText2.setLayout(2, QtWidgets.QFormLayout.SpanningRole, self.layoutDescription)
         self.layoutImportText1.addLayout(self.layoutImportText2)
@@ -466,9 +473,7 @@ class Ui_MainWindow(object):
         header= self.tableViewResultExecute.horizontalHeader()
         header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.tableViewResultExecute.setObjectName("tableViewResultExecute")
-        self.layoutExecute4.addWidget(self.tableViewResultExecute)
-       
-        
+        self.layoutExecute4.addWidget(self.tableViewResultExecute)        
         
         
        #############################
@@ -524,8 +529,14 @@ class Ui_MainWindow(object):
         self.pushButtonExportExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
         self.pushButtonExportExecute.setObjectName("pushButtonExportExecute")
         self.layoutExecute5.addWidget(self.pushButtonExportExecute)
-        
         self.pushButtonExportExecute.clicked.connect(self.exportExcel)
+ 
+
+        #Label for error messages of the Execute page
+        self.labelErrorExecute = QtWidgets.QLabel(self.groupBoxExecute2)
+        self.labelErrorExecute.setObjectName("labelErrorExecute")
+        self.layoutExecute4.addWidget(self.labelErrorExecute)
+        
         
         
         self.horizontalLayout_14.addLayout(self.layoutExecute4)
