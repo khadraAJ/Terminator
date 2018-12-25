@@ -33,7 +33,8 @@ class Ui_MainWindow(object):
     def addTriad(self):
         self.labelErrorExecute.setText("")
         self.tableViewResultExecute.addRow()
-        self.tableViewResultExecute.setValue1(self.tableViewResultExecute.rowCount()-1,None,None,None)
+        #cell value can't be empty because else their value can be changed even when validated checkbox is checked
+        self.tableViewResultExecute.setValue1(self.tableViewResultExecute.rowCount()-1,"none","none","none","none")
 
 
             ###Saving method 
@@ -168,7 +169,7 @@ class Ui_MainWindow(object):
             i=i+1
             
         
-            
+    #displays the triads of the currently analysed sentence            
     def displayCurrentTriads(self):
         i = 0
         self.tableViewResultExecute.resetTable()
@@ -177,6 +178,7 @@ class Ui_MainWindow(object):
                 self.displayTriads(j)
                 return
             i=i+1
+            
     
     #displays in the table in Execute all the given triads         
     def displayTriads(self, triads):
@@ -186,10 +188,10 @@ class Ui_MainWindow(object):
                 organ = triad[0]
                 prop = triad[1]
                 val = triad[2]
-                self.tableViewResultExecute.setValue1(triadNumber, organ, prop, val)
+                #Modifier value is "None" because if the cell is empty, it can be modified even if validated is checked
+                self.tableViewResultExecute.setValue1(triadNumber, organ, prop, val, "none")
                 triadNumber += 1
-                    
-            
+                               
             
     #when the user clicks on the Next button in Execute, the next triad appears
     def buttonNextExecute(self):
@@ -197,7 +199,7 @@ class Ui_MainWindow(object):
         self.currentSentence += 1
         self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
         self.displayCurrentTriads()
-        #Disables the buttons Previous and Next when needed
+        #disables the buttons Previous and Next when needed
         if(self.currentSentence == len(self.sentences)-1):
             self.pushButtonNextExecute.setEnabled(False)
         if(self.currentSentence != 0):
@@ -226,9 +228,6 @@ class Ui_MainWindow(object):
 
     def processImport(self):
         dicotampon = pseudo_main(self.textEditPublishedDescription.toPlainText())
-        # dicoOrgans = opening('organsList') # on charge le dictionnaire contenant les organes et leurs synonymes
-        # valuesDico = opening('valuesDico') # on charge le dico contenant les valeurs et leurs synonymes
-        #tampon = self.textEditPublishedDescription.toPlainText()
         self.textEditPublishedDescriptionExecutePage.clear()
         # self.textEditPublishedDescriptionExecutePage.insertPlainText(tampon)
         self.currentSentence = 0
@@ -236,24 +235,13 @@ class Ui_MainWindow(object):
         self.lastSentence = len(self.sentences)
         self.triads = dicotampon.values()
         print(self.triads)
-#        i = 0
-#        for key, value in dicotampon.items():
-#   
-#            self.textEditPublishedDescriptionExecutePage.insertPlainText(key) #affiche la phrase en cours
-#            if (value):
-#                for j in range(len(value)): #pour chaque triade
-#                    self.tableViewResultExecute.addRow()
-#                    # self.tableViewResultExecute.setRowCount(self.tableViewResultExecute.rowCount()+1)
-#                    x = value[j]
-#                    organ = x[0]
-#                    prop = x[1]
-#                    val = x[2]
-#                    self.tableViewResultExecute.setValue1(i, organ, prop, val)
-#                    i += 1
+        #if there is only one sentence to analyse, the Next button in Execute is disabled
+        if(len(self.sentences) == 1):
+            self.pushButtonNextExecute.setEnabled(False)
 
 
     def setupUi(self, MainWindow):
-        ## setting of the window and the home page 
+        # setting of the window and the home page 
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(975, 676)
         MainWindow.setToolTip("")
@@ -281,7 +269,7 @@ class Ui_MainWindow(object):
         self.importText_page = QtWidgets.QWidget()
         self.importText_page.setToolTip("")
         
-        ## import text part 
+        # import text part 
         self.importText_page.setObjectName("importText_page")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.importText_page)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -467,8 +455,8 @@ class Ui_MainWindow(object):
         
         ###########################
         # table of results
-        self.tableViewResultExecute = Mytable(0,4)#QtWidgets.QTableView(self.groupBoxExecute2)
-        colonne_header=["Organ","Property","Value","Validated"]#,"Validated:"
+        self.tableViewResultExecute = Mytable(0,5)#QtWidgets.QTableView(self.groupBoxExecute2)
+        colonne_header=["Organ","Property","Value","Modifier","Validated"]#,"Validated:"
         self.tableViewResultExecute.setHorizontalHeaderLabels(colonne_header)
         header= self.tableViewResultExecute.horizontalHeader()
         header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)

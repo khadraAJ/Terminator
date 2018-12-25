@@ -31,6 +31,8 @@ class Mytable (QTableWidget):
                 self.disableLine(row)
             else:
                 self.enableLine(row)
+
+    #disables a cell and colors it in green                
     def disableCell(self, row, col):
         cell = self.item(row, col)
         flags = cell.flags()
@@ -40,17 +42,25 @@ class Mytable (QTableWidget):
         cell.setBackground(QtGui.QColor(135, 233, 144))
         cell.setFlags(flags)
         self.setItem(row, col, QTableWidgetItem(cell))
+
+    #disables a line and colors it in green        
     def disableLine(self, row):
-        for i in range(3):
+        for i in range(4):
             self.disableCell(row,i)
+
+    #enables a cell and colors it in white             
     def enableCell(self, row, col):
         cell = self.item(row, col)
         cell.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled)
         cell.setBackground(QtGui.QColor(255, 255, 255))
         self.setItem(row, col, QTableWidgetItem(cell))
+        
+    #enables a line and colors it in white        
     def enableLine(self, row):
-        for i in range(3):
+        for i in range(4):
             self.enableCell(row, i)
+            
+            
     def init_ui(self):
         self.cellChanged.connect(self.c_current)
         
@@ -68,7 +78,7 @@ class Mytable (QTableWidget):
     def addRow (self):
         self.setRowCount(self.rowCount()+1)
         
-    def setValue1 (self,ligne,value,value1,value2):
+    def setValue1 (self,ligne,value,value1,value2,value3):
         val=QTableWidgetItem(value)
         self.setCurrentCell(ligne,0)
         self.setItem(ligne,0,QTableWidgetItem(val))
@@ -78,6 +88,9 @@ class Mytable (QTableWidget):
         self.setCurrentCell(ligne,2)
         val=QTableWidgetItem(value2)
         self.setItem(ligne,2,QTableWidgetItem(val))
+        self.setCurrentCell(ligne,3)
+        val=QTableWidgetItem(value3)
+        self.setItem(ligne,3,QTableWidgetItem(val))
         
         ##############################
         # zone test checkbox
@@ -85,7 +98,7 @@ class Mytable (QTableWidget):
         valCheckBox=QTableWidgetItem()
         valCheckBox.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
         valCheckBox.setCheckState(QtCore.Qt.Unchecked)
-        self.setItem(ligne,3,valCheckBox)
+        self.setItem(ligne,4,valCheckBox)
        # wdg = QtGui.QWidget()
         ##############################
         # code de la checkbox
