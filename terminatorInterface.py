@@ -461,7 +461,8 @@ class Ui_MainWindow(object):
         header= self.tableViewResultExecute.horizontalHeader()
         header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.tableViewResultExecute.setObjectName("tableViewResultExecute")
-        self.layoutExecute4.addWidget(self.tableViewResultExecute)        
+        self.layoutExecute4.addWidget(self.tableViewResultExecute)
+        self.tableViewResultExecute.setFocusPolicy(QtCore.Qt.NoFocus)       
         
         
        #############################
