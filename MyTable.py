@@ -186,27 +186,32 @@ class Mytable (QTableWidget):
             for j in i:
                 self.values.append(j) 
         self.values.insert(0,"none")
+        print (self.values)
 
     def findIndex(self, row, val):
          if(row == 0):
              for i in self.organs:
                  if(i == val):
                      return self.organs.index(val)
+             return 0
          else:
              if (row == 1):
                  for i in self.properties:
                      if(i == val):
                          return self.properties.index(val)
+                 return 0
              else:
                  if (row == 2):
                      for i in self.values:
                          if(i == val):
                              return self.values.index(val)
+                     return 0
                  else:
                      if (row == 3):
                          for i in self.modifiers:
                              if(i == val):
                                  return self.modifiers.index(val)
+                         return 0
         
         
         
