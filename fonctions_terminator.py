@@ -21,11 +21,8 @@ source = "Males (n = 15): L = 906-1118 (1001, 21); width = 27- 31 (28.7, 0.37); 
 
 def pseudo_main(source):
     # creation or loading of the dictionnaries
-    listModifiers = ["usually", "often", "rarely", "almost"]
-    dicoOrgans = opening('organsList') 
-    valuesDico = opening('valuesDico')
-    dicoRelativeProp = opening('relativeProp')
-    
+    listModifiers, dicoOrgans, valuesDico, dicoRelativeProp = loadings()
+
     finalDicoText = {}
     finalListTriad = []
     
@@ -759,4 +756,12 @@ def deleteDouble3(listItem, listPos):
             i = i + 1 #we search in the rest of the list
     return(listItem, listPos)
     #returns the list of items and their positions cleaned
+    
+# creation or loading of the dictionnaries    
+def loadings():
+    listModifiers = ["usually", "often", "rarely", "almost"]
+    dicoOrgans = opening('organsList') 
+    valuesDico = opening('valuesDico')
+    dicoRelativeProp = opening('relativeProp')
+    return listModifiers, dicoOrgans, valuesDico, dicoRelativeProp
     
