@@ -256,8 +256,11 @@ class Ui_MainWindow(object):
         self.home_page.setObjectName("home_page")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.home_page)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.layoutHome = QtWidgets.QVBoxLayout()
+        self.layoutHome = QtWidgets.QVBoxLayout()               
         self.layoutHome.setObjectName("layoutHome")
+        self.labelHome4 = QtWidgets.QLabel(self.home_page)
+        self.labelHome4.setObjectName("labelHome4")
+        self.layoutHome.addWidget(self.labelHome4)                        
         self.labelHome1 = QtWidgets.QLabel(self.home_page)
         self.labelHome1.setObjectName("labelHome1")
         self.layoutHome.addWidget(self.labelHome1)
@@ -642,6 +645,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
+        self.labelHome4.setPixmap(QtGui.QPixmap(_translate("MainWindow", 'nematode.png')))
+        self.labelHome4.move(50, 50)        
         MainWindow.setWindowTitle(_translate("MainWindow", "Terminator 2.0"))
         self.labelHome1.setText(_translate("MainWindow", "Terminator 2.0\n"
 "Author: Name and email\n"
