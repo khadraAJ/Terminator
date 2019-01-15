@@ -607,26 +607,13 @@ class Ui_MainWindow(object):
         self.help_page.setObjectName("help_page")
         self.verticalLayout_77 = QtWidgets.QVBoxLayout(self.help_page)
         self.verticalLayout_77.setObjectName("verticalLayout_77")
-        self.layoutSchema11 = QtWidgets.QVBoxLayout()
-        self.layoutSchema11.setObjectName("layoutSchema11")
-        self.groupBoxSchema11 = QtWidgets.QGroupBox(self.help_page)
-        self.groupBoxSchema11.setObjectName("groupBoxSchema11")
-        self.horizontalLayout_166 = QtWidgets.QHBoxLayout(self.groupBoxSchema11)
-        self.horizontalLayout_166.setObjectName("horizontalLayout_166")
-        self.layoutSchema22 = QtWidgets.QVBoxLayout()
-        self.layoutSchema22.setObjectName("layoutSchema22")
-        self.tableViewSchema = QtWidgets.QTableView(self.groupBoxSchema11)
-        self.tableViewSchema.setObjectName("tableViewSchema")
-        self.layoutSchema22.addWidget(self.tableViewSchema)
-        self.layoutSchema33 = QtWidgets.QHBoxLayout()
-        self.layoutSchema33.setObjectName("layoutSchema33")
-        #
-        self.layoutSchema22.addLayout(self.layoutSchema33)
-        self.horizontalLayout_166.addLayout(self.layoutSchema22)
-        self.layoutSchema11.addWidget(self.groupBoxSchema11)
-        self.verticalLayout_77.addLayout(self.layoutSchema11)
+        #*
+        self.labelHelp = QtWidgets.QLabel(self.help_page)
+        self.labelHelp.setObjectName("labelHelp")
+        #*
+        self.verticalLayout_77.addWidget(self.labelHelp)        
+        self.verticalLayout_77.addStretch()        
         self.tab.addTab(self.help_page, "")
-        
         
         ## ?? 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -645,8 +632,11 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
+        self.labelHelp.setText(_translate("MainWindow", "To use this program:\n\n- Firstly, you must either enter a text or click on the button: \"Import File\" in order to import your text.\n- Then, after clicking on the button \"Next\", you will have the possibility to validate, add or even delete the Triads\nthat you found in this text using the buttons in the execute tab. The triads will be displayed sentence by sentence.\n- Finally, you could export your result in the same tab and show them in a file that will have \"FinalResults\" as a name."
+        ""))
+        #self.labelHelp.move(0, 0)        
         self.labelHome4.setPixmap(QtGui.QPixmap(_translate("MainWindow", 'nematode.png')))
-        self.labelHome4.move(50, 50)        
+        #self.labelHome4.move(50, 50)        
         MainWindow.setWindowTitle(_translate("MainWindow", "Terminator 2.0"))
         self.labelHome1.setText(_translate("MainWindow", "Terminator 2.0\n"
 "Author: Name and email\n"
@@ -711,6 +701,7 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+    #MainWindow.setGeometry(400,400,400,400)
     MainWindow.show()
     #MainWindow.destroy()
     sys.exit(app.exec_())
