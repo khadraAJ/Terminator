@@ -459,7 +459,7 @@ class Ui_MainWindow(object):
         ###########################
         # table of results
         self.tableViewResultExecute = Mytable(0,5)#QtWidgets.QTableView(self.groupBoxExecute2)
-        colonne_header=["Organ","Property","Value","Modifier","Validated"]#,"Validated:"
+        colonne_header=["Organ","Property","Value","Modifyer","Validated"]#,"Validated:"
         self.tableViewResultExecute.setHorizontalHeaderLabels(colonne_header)
         header= self.tableViewResultExecute.horizontalHeader()
         header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
