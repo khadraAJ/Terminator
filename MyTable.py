@@ -26,9 +26,10 @@ class Mytable (QTableWidget):
         #loads all the values of organs, properties, values, modifiers and relatives
         self.listsForCombobox()
 
+    #the line is enable/disable if the validated checkbox statut changes
     def handleCellClicked(self, row, column):
         clickedCell = self.item(row, column)
-        if (clickedCell.text() == ''):
+        if (clickedCell.text() == '' and column == 5):
             if clickedCell.checkState() == QtCore.Qt.Checked:
                 self.disableLine(row)
             else:
@@ -49,7 +50,7 @@ class Mytable (QTableWidget):
 
     #disables a line and colors it in green        
     def disableLine(self, row):
-        for i in range(4):
+        for i in range(1,5):
             self.disableCell(row,i)
 
     #enables a cell and colors it in white             
@@ -63,7 +64,7 @@ class Mytable (QTableWidget):
         
     #enables a line and colors it in white        
     def enableLine(self, row):
-        for i in range(4):
+        for i in range(1,5):
             self.enableCell(row, i)
             
             
@@ -90,62 +91,73 @@ class Mytable (QTableWidget):
     #WARNING chaque fois que l'on clique sur une checkbox la cellule selectionée change
     def setValue1 (self,ligne,value,value1,value2,value3):
         #defined actions 
-        slotOrgans = lambda: self.handleCombo(ligne,0)
-        slotProperties = lambda: self.handleCombo(ligne,1)
-        slotValues = lambda: self.handleCombo(ligne,2)
-        slotModifiers = lambda: self.handleCombo(ligne,3)
+        slotOrgans = lambda: self.handleCombo(ligne,1)
+        slotProperties = lambda: self.handleCombo(ligne,2)
+        slotValues = lambda: self.handleCombo(ligne,3)
+        slotModifiers = lambda: self.handleCombo(ligne,4)
+        
+        selectCheckBox=QTableWidgetItem()
+        selectCheckBox.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+        selectCheckBox.setCheckState(QtCore.Qt.Unchecked)
+        self.setItem(ligne,0,selectCheckBox)
         
         #comboboxes creation
         comboOrgans = QComboBox()
         comboOrgans.addItems(self.organs)
-        comboOrgans.setCurrentIndex(self.findIndex(0,value))
+        comboOrgans.setCurrentIndex(self.findIndex(1,value))
         comboOrgans.currentIndexChanged.connect(slotOrgans)
-        self.setCellWidget(ligne,0,comboOrgans)
+        self.setCellWidget(ligne,1,comboOrgans)
         
         comboProperties = QComboBox()
         comboProperties.addItems(self.properties)
-        comboProperties.setCurrentIndex(self.findIndex(1,value1))
+        comboProperties.setCurrentIndex(self.findIndex(2,value1))
         comboProperties.currentIndexChanged.connect(slotProperties)
-        self.setCellWidget(ligne,1,comboProperties)
+        self.setCellWidget(ligne,2,comboProperties)
         
         comboValues = QComboBox()
         comboValues.addItems(self.values)
-        comboValues.setCurrentIndex(self.findIndex(2,value2))
+        comboValues.setCurrentIndex(self.findIndex(3,value2))
         comboValues.currentIndexChanged.connect(slotValues)
-        self.setCellWidget(ligne,2,comboValues)
+        self.setCellWidget(ligne,3,comboValues)
         
         
         comboModifiers = QComboBox()
         comboModifiers.addItems(self.modifiers)
-        comboModifiers.setCurrentIndex(self.findIndex(3,value3))
+        comboModifiers.setCurrentIndex(self.findIndex(4,value3))
         comboModifiers.currentIndexChanged.connect(slotModifiers)
-        self.setCellWidget(ligne,3,comboModifiers)
+        self.setCellWidget(ligne,4,comboModifiers)
         
         
 
             
         val=QTableWidgetItem(value)
-        self.setCurrentCell(ligne,0)
-        self.setItem(ligne,0,QTableWidgetItem(val))
         self.setCurrentCell(ligne,1)
-        val=QTableWidgetItem(value1)
         self.setItem(ligne,1,QTableWidgetItem(val))
         self.setCurrentCell(ligne,2)
-        val=QTableWidgetItem(value2)
+        val=QTableWidgetItem(value1)
         self.setItem(ligne,2,QTableWidgetItem(val))
         self.setCurrentCell(ligne,3)
-        val=QTableWidgetItem(value3)
+        val=QTableWidgetItem(value2)
         self.setItem(ligne,3,QTableWidgetItem(val))
+        self.setCurrentCell(ligne,4)
+        val=QTableWidgetItem(value3)
+        self.setItem(ligne,4,QTableWidgetItem(val))
         valCheckBox=QTableWidgetItem()
         valCheckBox.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
         valCheckBox.setCheckState(QtCore.Qt.Unchecked)
-        self.setItem(ligne,4,valCheckBox)
+        self.setItem(ligne,5,valCheckBox)
         
 
     
-    #removes the row corresponding to the given parameter    
-    def deleteLine (self,row):
-        self.removeRow(row)
+    #removes all the selected rows 
+    def deleteLines (self):
+        deletion = False
+        for i in reversed(range (self.rowCount())):
+            clickedCell = self.item(i, 0)
+            if clickedCell.checkState() == QtCore.Qt.Checked:
+                self.removeRow(i)
+                deletion = True
+        return deletion
     
     #removes all the rows in the table except the head of the table
     def resetTable (self):
@@ -189,25 +201,25 @@ class Mytable (QTableWidget):
         print (self.values)
 
     def findIndex(self, row, val):
-         if(row == 0):
+         if(row == 1):
              for i in self.organs:
                  if(i == val):
                      return self.organs.index(val)
              return 0
          else:
-             if (row == 1):
+             if (row == 2):
                  for i in self.properties:
                      if(i == val):
                          return self.properties.index(val)
                  return 0
              else:
-                 if (row == 2):
+                 if (row == 3):
                      for i in self.values:
                          if(i == val):
                              return self.values.index(val)
                      return 0
                  else:
-                     if (row == 3):
+                     if (row == 4):
                          for i in self.modifiers:
                              if(i == val):
                                  return self.modifiers.index(val)

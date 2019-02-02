@@ -126,25 +126,13 @@ class Ui_MainWindow(object):
         self.tableViewResultExecute.setValue1((i-1),organ,properti,value)
         self.tableViewResultExecute.update()
         del self.listBuffer[-1]
-    
 
-    #deletes the row of the selected cell
+    #deletes all the selected rows
     def deleteTriad(self):
-        buffer = []
-        self.labelErrorExecute.setText("")
-        #if an item is selected
-        if(self.tableViewResultExecute.currentItem() != None):
-            buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),0).text())
-            print("Buffer après premier ajout : "+buffer[0])
-            buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),1).text())
-            print("Buffer après second ajout : "+buffer[1])
-            buffer.append(self.tableViewResultExecute.item(self.tableViewResultExecute.row(self.tableViewResultExecute.currentItem()),2).text())
-            print("Buffer après troisieme ajout : "+buffer[2])
-            self.listBuffer.append(buffer)
-            print("liste buffer après ajout")
-            print(self.listBuffer)
-            self.tableViewResultExecute.deleteLine(self.tableViewResultExecute.row((self.tableViewResultExecute.currentItem())));
-        else: self.labelErrorExecute.setText("No selected item")
+        deletion = self.tableViewResultExecute.deleteLines()
+        if(not(deletion)):
+            self.labelErrorExecute.setText("No selected line")
+   
         
    #############################################
    # méthode bouton next ok 
@@ -458,14 +446,14 @@ class Ui_MainWindow(object):
         
         ###########################
         # table of results
-        self.tableViewResultExecute = Mytable(0,5)#QtWidgets.QTableView(self.groupBoxExecute2)
-        colonne_header=["Organ","Property","Value","Modifyer","Validated"]#,"Validated:"
+        self.tableViewResultExecute = Mytable(0,6)#QtWidgets.QTableView(self.groupBoxExecute2)
+        colonne_header=["Selection","Organ","Property","Value","Modifyer","Validated"]#,"Validated:"
         self.tableViewResultExecute.setHorizontalHeaderLabels(colonne_header)
         header= self.tableViewResultExecute.horizontalHeader()
         header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.tableViewResultExecute.setObjectName("tableViewResultExecute")
         self.layoutExecute4.addWidget(self.tableViewResultExecute)
-        self.tableViewResultExecute.setFocusPolicy(QtCore.Qt.NoFocus)   
+        self.tableViewResultExecute.setFocusPolicy(QtCore.Qt.NoFocus)
         
         
        #############################
@@ -476,7 +464,7 @@ class Ui_MainWindow(object):
         # button delete
         ################################
         self.pushButtonDelete=QtWidgets.QPushButton(self.groupBoxExecute2)
-        self.pushButtonDelete.setText("Delete Triad")
+        self.pushButtonDelete.setText("Delete Triads")
         
         self.pushButtonDelete.setObjectName("pushButtonDelete")
         self.pushButtonDelete.clicked.connect(self.deleteTriad)
