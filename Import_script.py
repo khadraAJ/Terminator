@@ -8,6 +8,7 @@ Created on Mon Jan 29 15:35:11 2018
 import xlrd
 import pickle
 from xlwt import Workbook
+import datetime
 
 ###############################################################################
 ##################### Import of excel files in dictionnaries ##################
@@ -265,7 +266,9 @@ def export(listeTriades): #create an Excel Sheet with the results
             x += 1 # allow to right in the line below the previous one
     
     # material creation of the existing file
-    book.save('FinalResults.xls')
+    D=datetime.datetime.today()
+    X=D.strftime('%d_%m_%Y-%H_%M_%S')
+    book.save('TerminatorResults-' + X + '.xls')
     
 ###############################################################################
 ###############################################################################
