@@ -21,6 +21,7 @@ class Ui_MainWindow(object):
     
     listBuffer=[]
     
+    # Export in the directory a file "TerminatorResults-date-hour.xlsx"
     def exportExcel(self):
         self.labelErrorExecute.setText("")
         try:
@@ -36,8 +37,7 @@ class Ui_MainWindow(object):
         #cell value can't be empty because else their value can be changed even when validated checkbox is checked
         self.tableViewResultExecute.setValue1(self.tableViewResultExecute.rowCount()-1,"none","none","none","none")
 
-
-            ###Saving method 
+    ###Saving method. No longer used, replaced with exportExcel
     def creationFichier (self):
         D=datetime.datetime.today()
         X=D.strftime('%d_%m_%Y-%H_%M_%S')
