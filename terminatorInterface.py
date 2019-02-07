@@ -20,12 +20,13 @@ class Ui_MainWindow(object):
     app = QtWidgets.QApplication(sys.argv)
     
     listBuffer=[]
+    additionalInfos=[]
     
     # Export in the directory a file "TerminatorResults-date-hour.xlsx"
     def exportExcel(self):
         self.labelErrorExecute.setText("")
         try:
-            export(self.triads) #mauvaise forme de tableau
+            export(self.triads, self.additionalInfos) #mauvaise forme de tableau
         except:
             print("Fail creation")
             self.labelErrorExecute.setText("Fail creation")
@@ -85,7 +86,7 @@ class Ui_MainWindow(object):
         obj.write("\n\n\n")
         obj.write("Triades Generated:")
         obj.write("\n\n\n")
-        
+
         espace = 60
         #for each line in the Result table
         for i in range(self.tableViewResultExecute.rowCount()):
@@ -656,6 +657,8 @@ class Ui_MainWindow(object):
         self.tab.setTabText(self.tab.indexOf(self.schema_page), _translate("MainWindow", "Schema"))
         # partie help
         self.tab.setTabText(self.tab.indexOf(self.help_page), _translate("MainWindow", "Help"))
+
+        
 
 if __name__ == "__main__":
     import sys
