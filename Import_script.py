@@ -268,7 +268,7 @@ def export(listeTriades): #create an Excel Sheet with the results
     # material creation of the existing file
     D=datetime.datetime.today()
     X=D.strftime('%d_%m_%Y-%H_%M_%S')
-    book.save('TerminatorResults-' + X + '.xls')
+    book.save('TerminatorResults-' + X + '.xlsx')
     
 ###############################################################################
 ###############################################################################
