@@ -255,6 +255,18 @@ def export(listeTriades): #create an Excel Sheet with the results
     sheet1.write(0,1,'Property')
     sheet1.write(0,2,'Value')
     
+    # adding additional informations input by the user
+    sheet1.write(0,4,'Ref N°:')
+    sheet1.write(1,4,'Specie Number:')
+    sheet1.write(2,4,'Rec N°:')
+    sheet1.write(3,4,'Genus:')
+    sheet1.write(4,4,'Specie name:')
+    sheet1.write(5,4,'Population:')
+    sheet1.write(6,4,'Stage:')
+    sheet1.write(7,4,'Sex:')
+    sheet1.write(8,4,'Locality:')
+    sheet1.write(9,4,'Host:')
+    
     x = 1
     #filling the table
     for triades in listeTriades: #pour les triades de chaque phrase
