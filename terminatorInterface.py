@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def exportExcel(self):
         self.labelErrorExecute.setText("")
         try:
-            export(self.triads, self.additionalInfos) #mauvaise forme de tableau
+            export(self.triads) #mauvaise forme de tableau
         except:
             print("Fail creation")
             self.labelErrorExecute.setText("Fail creation")
@@ -189,11 +189,11 @@ class Ui_MainWindow(object):
         self.textEditPublishedDescriptionExecutePage.setText(self.findCurrentSentence())
         self.displayCurrentTriads()
         #disables the buttons Previous and Next when needed
-        if(self.currentSentence == len(self.sentences)-1):
-            self.pushButtonNextExecute.setEnabled(False)
         if(self.currentSentence != 0):
             self.pushButtonPreviousExecute.setEnabled(True)
-
+        if(self.currentSentence == len(self.sentences)-1):
+            self.pushButtonNextExecute.setEnabled(False)
+        
 
     #when the user clicks on the Previous button in Execute, the previous triad appears
     def buttonPreviousExecute(self):
@@ -493,7 +493,7 @@ class Ui_MainWindow(object):
         
         #Previous button in Execute
         self.pushButtonPreviousExecute = QtWidgets.QPushButton(self.groupBoxExecute2)
-        self.pushButtonPreviousExecute.setObjectName("pushButtonNextExecute")
+        self.pushButtonPreviousExecute.setObjectName("pushButtonPreviousExecute")
         self.layoutExecute5.addWidget(self.pushButtonPreviousExecute)
         self.layoutExecute4.addLayout(self.layoutExecute5)
         self.pushButtonPreviousExecute.setEnabled(False)
@@ -504,6 +504,7 @@ class Ui_MainWindow(object):
         self.pushButtonNextExecute.setObjectName("pushButtonNextExecute")
         self.layoutExecute5.addWidget(self.pushButtonNextExecute)
         self.layoutExecute4.addLayout(self.layoutExecute5)
+        self.pushButtonPreviousExecute.setEnabled(True)
         self.pushButtonNextExecute.clicked.connect(self.buttonNextExecute)
         
         #button export
