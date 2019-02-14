@@ -240,13 +240,12 @@ def supp_item():
 ################ Export of the triads list into an Excel file #################
 ###############################################################################
 
-def export(listeTriades, addInfo): #create an Excel Sheet with the results & the additional informations
+def export(listeTriades): #create an Excel Sheet with the results & the additional informations
     #print (listeTriades)
     # creation of the workbook
+    addInfo = ['REF_N°:','SPECIES_N°','REC_N°:','Genus:','Specie name:','Population:','Sex:','Stage:','Locality:','Host:']
     book = Workbook()
-    #listeTriades = []
-    #listeTriades.append(['organe1','propriété1','valeur1'])
-    #listeTriades.append(['organe2', 'prop2','val2'])
+    
     # creation of the first sheet
     sheet1 = book.add_sheet('Results')
     
@@ -255,24 +254,14 @@ def export(listeTriades, addInfo): #create an Excel Sheet with the results & the
     sheet1.write(0,1,'Property')
     sheet1.write(0,2,'Value')
     
-    # adding additional informations input by the user
-    sheet1.write(0,4,'Ref N°:')
-    sheet1.write(1,4,'Specie Number:')
-    sheet1.write(2,4,'Rec N°:')
-    sheet1.write(3,4,'Genus:')
-    sheet1.write(4,4,'Specie name:')
-    sheet1.write(5,4,'Population:')
-    sheet1.write(6,4,'Stage:')
-    sheet1.write(7,4,'Sex:')
-    sheet1.write(8,4,'Locality:')
-    sheet1.write(9,4,'Host:')
+    print("je test")    
+    #adding the reference column
+    for i in range(len(addInfo)):
+        #Bold text, it does not work : sheet1.write(i,4,'\033[1m' + addInfo[i])
+        sheet1.write(i, 5, addInfo[i])
+        #k+=1
     
-    x=0
-    for inf in addInfo:
-        
-        sheet1.write(x,5,inf)
-        x +=1
-    
+    #sheet1.write(0,4, addInfo[0])
     x = 1
     #filling the table
     for triades in listeTriades: #pour les triades de chaque phrase
@@ -286,7 +275,7 @@ def export(listeTriades, addInfo): #create an Excel Sheet with the results & the
     # material creation of the existing file
     D=datetime.datetime.today()
     X=D.strftime('%d_%m_%Y-%H_%M_%S')
-    book.save('TerminatorResults-' + X + '.xlsx')
+    book.save('TerminatorResults-' + X + '.xls')
     
 ###############################################################################
 ###############################################################################
