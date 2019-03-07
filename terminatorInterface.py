@@ -9,6 +9,9 @@ import sys
 import os
 import csv
 import datetime
+import tkinter as tk
+from tkinter.filedialog import askopenfilename
+from io import open
 #import Main1103
 from MyTable import Mytable
 from fonctions_terminator import pseudo_main
@@ -21,7 +24,20 @@ class Ui_MainWindow(object):
     
     listBuffer=[]
     additionalInfos=[]
-    
+     # import in the interface a file  
+    def import_Fichier (self,f):  
+        
+       # ouvrir une fenêtre
+        root = tk.Tk()
+        root.withdraw()             # pour ne pas afficher la fenêtre Tk
+        filepath = askopenfilename(filetypes=[('txt files','.txt'),('xlsx files','.xlsx')])   # lance la fenêtre (sélectionner le type du fichier txt et xslx)
+        print (filepath) 
+        
+      #ouverture du fichier en mode read 'r' (lecture en mode texte)
+        name = open(filepath, "r") 
+        f = name.readlines() 
+        print (f)
+        
     # Export in the directory a file "TerminatorResults-date-hour.xlsx"
     def exportExcel(self):
         self.labelErrorExecute.setText("")
@@ -384,7 +400,7 @@ class Ui_MainWindow(object):
         #import file bouton
         self.pushButtonImportFile = QtWidgets.QPushButton(self.importText_page)
         self.pushButtonImportFile.setObjectName("pushButtonImportFile")
-        
+        self.pushButtonImportFile.clicked.connect(self.import_Fichier)
         
         
         self.layoutImportFileAndnextButtons.addWidget(self.pushButtonImportFile)
